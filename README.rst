@@ -1,3 +1,6 @@
+.. image:: https://badge.waffle.io/mupi/escolamupi.png?label=ready 
+ :target: https://waffle.io/mupi/escolamupi
+ :alt: 'Stories in Ready'
 Timtec
 ======
 
