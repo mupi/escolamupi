@@ -8,7 +8,7 @@ from django.contrib import admin as django_admin
 django_admin.autodiscover()
 
 from django.views.generic import TemplateView
-from accounts.views import CustomLoginView, ProfileEditView, ProfileView
+from accounts.views import CustomLoginView, ProfileEditView, ProfileView, AccountPaymentView
 from forum.views import AnswerViewSet as ForumAnswerViewSet
 
 from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
@@ -98,8 +98,11 @@ urlpatterns = patterns(
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
     url(r'^profile/(?P<username>[\w.+-]+)?/?$', ProfileView.as_view(), name="profile"),
 
+
     # The django-allauth
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/payment', AccountPaymentView.as_view(), name="account_payment"),
+    url(r'^accounts/notify_payment', include('paypal.standard.ipn.urls')),
 
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),

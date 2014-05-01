@@ -28,6 +28,7 @@ from .forms import ContactForm, AcceptTermsForm
 
 from twitter import Twitter, OAuth
 
+from django.views.decorators.csrf import csrf_exempt
 
 class HomeView(ListView):
     context_object_name = 'courses'
@@ -119,6 +120,16 @@ class CourseView(DetailView):
 
 class UserCoursesView(LoginRequiredMixin, TemplateView):
     template_name = 'user-courses.html'
+
+    def post(self, request):
+        # Here we don't need to handle the fact that the payment should not
+        # be processed yet, instead we check that when he tries to enroll to
+        # some project (im my-courses or projects page)
+        return self.render_to_response(self.template_name)
+
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(UserCoursesView, self).dispatch(*args, **kwargs)
 
 
 class EnrollCourseView(LoginRequiredMixin, RedirectView):
