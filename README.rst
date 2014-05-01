@@ -4,8 +4,8 @@
 Timtec
 ======
 
-.. image:: https://drone.io/github.com/hacklabr/timtec/status.png
-    :target: https://drone.io/github.com/hacklabr/timtec/latest
+.. image:: https://drone.io/github.com/mupi/escolamupi/status.png
+    :target: https://drone.io/github.com/mupi/escolamupi/latest
 
 .. image:: https://coveralls.io/repos/hacklabr/timtec/badge.png
     :target: https://coveralls.io/r/hacklabr/timtec

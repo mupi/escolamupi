@@ -55,6 +55,8 @@ settings_local.py
 /static/css/main.css
 /static/css/main-admin.css
 /.cache
+/static/css/mupi.css
+/static/css/mupi-admin.css
 /node_modules
 
 
