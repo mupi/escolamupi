@@ -7,13 +7,15 @@ from django.utils.safestring import mark_safe
 
 register = template.Library()
 
-
 @register.filter(is_safe=True)
 @stringfilter
-def timtec_markdown(value):
-    extensions = ["nl2br", "attr_list"]
+def allow_html_markdown(value):
+    extensions = ["nl2br", ]
 
     return mark_safe(markdown.markdown(force_unicode(value),
                                        extensions,
-                                       safe_mode=True,
+                                       safe_mode=False,
                                        enable_attributes=False))
+
+
+
