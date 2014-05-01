@@ -45,8 +45,7 @@ METRON_SETTINGS = {
 
 
 LOGIN_URL = '/accounts/login/'
-
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/my-courses'
 
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",
                            "allauth.account.auth_backends.AuthenticationBackend")
@@ -63,7 +62,7 @@ TIME_ZONE = 'America/Sao_Paulo'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'pt-br'
+LANGUAGE_CODE = 'mupi'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -74,10 +73,7 @@ USE_I18N = True
 USE_L10N = True
 
 LANGUAGES = (
-    ('pt-br', _('Brazilian Portuguese')),
-    ('it', _('Italian')),
-    ('es', _('Spanish')),
-    ('en', _('English')),
+    ('mupi', _('Mupi translation')),
 )
 
 LOCALE_PATHS = (
@@ -362,7 +358,12 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(SETTINGS_DIR, 'templates'),
+    os.path.join(PROJECT_ROOT, 'administration/templates/mupi'),
+    os.path.join(PROJECT_ROOT, 'core/templates/mupi'),
+    os.path.join(PROJECT_ROOT, 'accounts/templates/mupi'),
+    os.path.join(PROJECT_ROOT, 'forum/templates/mupi'),
+    #os.path.join(PROJECT_ROOT, 'administration/templates'),
+    #os.path.join(PROJECT_ROOT, 'core/templates'
 )
 
 

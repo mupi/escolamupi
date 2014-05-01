@@ -8,6 +8,7 @@ from django.views.generic import DetailView, ListView, FormView
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.conf import settings
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -29,14 +30,34 @@ from .forms import ContactForm, AcceptTermsForm
 from twitter import Twitter, OAuth
 
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 
 class HomeView(ListView):
     context_object_name = 'courses'
-    template_name = "home.html"
+    template_name  = "home.html"
+
+    permanent = False
 
     def get_queryset(self):
         return Course.objects.all()
 
+    def dispatch(self, request, *args, **kwargs):
+	user = self.request.user
+
+	if  user.is_authenticated():
+            return redirect('/my-courses', *args, **kwargs)
+        else:
+            return super(HomeView, self).dispatch(request, *args, **kwargs)
+
+class GuideView(TemplateView):
+    template_name = "guia.html"
+
+class CoursesView(ListView):
+    context_object_name = 'courses'
+    template_name  = "courses.html"
+
+    def get_queryset(self):
+        return Course.objects.all()
 
 class TwitterApi(View):
 
