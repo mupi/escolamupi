@@ -1,0 +1,174 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{{ site.name }}{% endblock %}</title>
+
+    {% include "_assets.html" %}
+    {% load metron_tags %}
+    {% analytics %}
+    <script type="text/javascript" charset="utf-8">
+        (function(){
+            function resize_player() {
+                var $p = $('#youtube-player');
+                $p.css('width','100%');
+                $p.height(Math.floor($p.width() * 0.5624));
+            }
+
+            function resize_activation_wrapper() {
+                windowHeight = window.innerHeight;
+                navbarHeight = $('#main-navbar').innerHeight();
+                footerHeight = $('#main-footer').innerHeight();
+                $('#activation-wrapper').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
+            }
+
+            $(document).ready(function() {
+                $('.has-tooltip').tooltip();
+                $(document).on('DOMNodeInserted','#player-outter', resize_player);
+                resize_player();
+                resize_activation_wrapper();
+            });
+            $(window).resize(resize_player);
+            $(window).resize(resize_activation_wrapper);
+        })();
+    </script>
+    {% endblock %}
+</head>
+<body>
+<script>
+window.STATIC_URL = '{{ STATIC_URL }}';
+{% if debug %}window.DEBUG = true;{% endif %}
+</script>
+    <!-- Wrap all page content here -->
+    <div id="wrap" class="home-wrap">
+
+        <!-- CONTAINER -->
+
+        {% include "header-animation.html" %}
+
+        <div id="home" class="container">
+
+            <div class="row rewards">
+                <div class="col-lg-2">
+                    <div class="img-home-border">
+                        <img src="{% static 'img/love2code.png' %}" />
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h2>Aprenda a criar websites na prática</h2>
+                    <p>
+                        Na Mupi você aprende desenvolvendo projetos baseados em situações reais,
+                        ao mesmo tempo em que constrói seu <strong>portfólio</strong>
+                        e se prepara para o mercado de trabalho.
+                    </p>
+                </div>
+                <div class="col-lg-2">
+                    <div class="badge-home">
+                        <i class="fa fa-trophy"></i>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h2>Ganhe pontos e reconhecimento</h2>
+                    <p>
+                        Ao longo dos projetos você vai adquirindo pontos e badges que
+                        indicam quais habilidades e conhecimentos você domina. Suas conquistas
+                        podem ser visíveis por qualquer pessoa.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row community">
+                <div class="col-lg-4">
+                    <h3>Especialistas e comunidade dispostos a te ajudar!</h3>
+                    <p>
+                        Nosso time é composto por especialistas prontos para te ajudar o mais rápido possível.
+                        Engaje-se na comunidade e aprenda muito mais rápido ajudando e recebendo ajuda de
+                        outros alunos.
+                    </p>
+                </div>
+
+                <div id="carousel-team" class="carousel slide col-lg-8" data-interval="false">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-team" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-team" data-slide-to="1"></li>
+                        <li data-target="#carousel-team" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner container">
+                        <div class="item active row">
+                            <div class="col-md-9 team-quote">
+                                <p>
+                                    "Sou formada em Comunicação Social - Midialogia pela Unicamp e técnica em Informática. Trabalho como web designer desde 2008 e passo metade do meu tempo descobrindo e aprendendo coisas incríveis na web.
+                                    Eu que te ajudarei na hora de arrumar aquele <code>float</code> que tá quebrando seu layout :)"
+                                </p>
+                            </div>
+                            <div class="col-md-3 team-member">
+                                <p>
+                                    <p><img src="{% static 'img/ana.jpg' %}" /></p>
+                                    <span>Ana Rute Mendes</span>
+                                    <p>CEO e Web Designer da Escola Mupi</p>
+                                    <p>
+                                        <a href="http://anarute.com" target="_blank"/>blog</a> //
+                                        <a href="http://twitter.com/ana_rute" target="_blank"/>@ana_rute</a>
+                                    </p>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="item row">
+                            <div class="col-md-9 team-quote">
+                                <p>
+                                    "Sou mestranda em Linguística Aplicada e Tecnologia  pela Unicamp, formada em Letras por lá também e fiz o técnico em eletroeletrônica no Cotuca. Já trabalhei como técnica e tech writer e agora sou professora, designer instrucional e responsável pelas estratégias pedagógicas na Escola Mupi, com o projeto de vida de levar conhecimento de qualidade para muitas pessoas!"
+                                </p>
+                             </div>
+                             <div class="col-md-3 team-member">
+                                <p><img src="{% static 'img/paulets.jpg' %}" /></p>
+                                <span>Paula Furtado</span>
+                                <p>Especialista em Educação da Mupi e mestranda na Unicamp</p>
+                            </div>
+                        </div>
+                        <div class="item row">
+                            <div class="col-md-9 team-quote">
+                                <p>
+                                    Formado em Computação pela Unicamp e desenvolvedor de software. Tem um interesse
+                                    muito grande por Tecnologia e Educação e está sempre envolvido em projetos nessa
+                                    área, como o Mupi!
+                                </p>
+                            </div>
+                            <div class="col-md-3 team-member">
+                                <p><img src="{% static 'img/vir.jpg' %}" /></p>
+                                <span>Virgílio Santos</span>
+                                <p>CTO da Escola Mupi</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#carousel-team" data-slide="prev">
+                        <i class="fa fa-chevron-left"></i>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-team" data-slide="next">
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <!-- CONTAINER -->
+
+    </div>
+
+    {% include 'footer.html' %}
+
+    <!--start of Offerchat js code--><script type='text/javascript'>var ofc_key = 'c88b6490294d523a0fedbba330c1cf1f';(function(){  var oc = document.createElement('script'); oc.type = 'text/javascript'; oc.async = true;  oc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'd1cpaygqxflr8n.cloudfront.net/p/js/widget.min.js?r=1';  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(oc, s);}());</script><!--end of Offerchat js code-->
+
+    <script type="text/javascript" src="{% static 'js/EasePack.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/TweenLite.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/easeljs-0.7.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/requestAnimationFrame.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/header-animation.js' %}" charset="utf-8"></script>
+
+</body>
+</html>

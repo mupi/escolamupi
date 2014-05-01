@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+<!-- CONTAINER -->
+<div id="guia" class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      Utilize o guia abaixo para conhecer as funcionalidades básicas da escola Mupi.
+    </div>
+  </div>
+  <section>
+    <div id="guide-1" class="carousel slide" data-ride="carousel" data-interval="false">
+      <ol class="carousel-indicators">
+        <li data-target="#guide-1" data-slide-to="0" class=""></li>
+        <li data-target="#guide-1" data-slide-to="1" class=""></li>
+        <li data-target="#guide-1" data-slide-to="2" class=""></li>
+        <li data-target="#guide-1" data-slide-to="3" class=""></li>
+        <li data-target="#guide-1" data-slide-to="4" class=""></li>
+        <li data-target="#guide-1" data-slide-to="5" class=""></li>
+        <li data-target="#guide-1" data-slide-to="6" class=""></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active row">
+          <div class="col-md-5 col-md-offset-1">
+           <h2>Inicie um projeto</h2>
+           <p>
+            Na página inicial de cada projeto, você encontra todas as
+            informações sobre ele e o acesso às suas etapas. Para
+            iniciar, clique em <strong>FAZER O PROJETO</strong>.
+          </p>
+        </div>
+        <div class="col-md-5">
+          <img src="{% static 'img/guia/1.gif' %}" class="img-rounded"/>
+        </div>
+      </div>
+      <div class="item row">
+        <div class="col-md-5 col-md-offset-1">
+          <h2>Continue o projeto até seu envio</h2>
+          <p>
+            Para continuar seus estudos, na página inicial de cada projeto
+            já iniciado, clique em <strong>CONTINUAR PROJETO</strong>.
+          </p>
+        </div>
+        <div class="col-md-5">
+          <img src="{% static 'img/guia/2.gif' %}" />
+        </div>
+      </div>
+      <div class="item row">
+        <div class="col-md-5 col-md-offset-1">
+          <h2>Acesse a qualquer momento cada etapa ou unidade</h2>
+          <p>
+            Navegando entre etapas e unidades: mesmo que as etapas
+            sejam sequenciais, na página inicial de cada projeto, você consegue
+            navegar entre seus conteúdos. Para isso, clique no nome da
+            etapa ou em uma de suas unidades.
+          </p>
+        </div>
+        <div class="col-md-5">
+          <img src="{% static 'img/guia/3.gif' %}" />
+        </div>
+      </div>
+      <div class="item row">
+        <div class="col-md-5 col-md-offset-1">
+          <h2>Navegue para a próxima etapa do projeto</h2>
+          <p>
+            Para navegar entre as etapas, basta escolher para qual ir no menu
+            <strong>ETAPA</strong>. Veja que no menu elas já
+            estão na ordem sugerida, então siga para a próxima!
+          </p>
+        </div>
+        <div class="col-md-5">
+          <img src="{% static 'img/guia/4.gif' %}" />
+        </div>
+      </div>
+      <div class="item row">
+        <div class="col-md-5 col-md-offset-1">
+         <h2>Complete cada etapa</h2>
+         <p>
+          Você precisa completar
+          <strong>toda</strong> unidade do menu vertical.
+          Para saber o que é preciso fazer, basta
+          ler as <strong>Orientações</strong> de cada unidade!
+        </p>
+      </div>
+      <div class="col-md-5">
+        <img src="{% static 'img/guia/5.gif' %}" />
+      </div>
+    </div>
+    <div class="item row">
+      <div class="col-md-5 col-md-offset-1">
+        <p>
+          <h2>Faça suas anotações pessoais</h2>
+          Você pode fazer suas próprias anotações em cada unidade.
+          Clique em <strong>Minhas anotações</strong>, escreva
+          e salve.<br/>
+          Em seu Dashbord, há a opção <strong>Minhas Anotações</strong>
+          que organiza todas as notações que você fez, por projeto e unidade.
+        </p>
+      </div>
+      <div class="col-md-5">
+        <img src="{% static 'img/guia/6.gif' %}" />
+      </div>
+    </div>
+    <div class="item row">
+      <div class="col-md-5 col-md-offset-1">
+        <h2>Dúvidas?!</h2>
+        <p>
+          Você pode colocar suas dúvidas por unidade, dentro de cada
+          etapa de projeto e também ajudar seus colegas inserindo respostas
+          para as dúvidas deles. <br/>
+          Sempre acompanharemos as respostas, intervindo quando necessário!
+        </p>
+      </div>
+      <div class="col-md-5">
+        <img src="{% static 'img/guia/7.gif' %}" />
+      </div>
+    </div>
+  </div>
+  <a class="left carousel-control" href="#guide-1" data-slide="prev">
+    <span class="fa fa-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#guide-1" data-slide="next">
+    <span class="fa fa-chevron-right"></span>
+  </a>
+</div>
+</section>
+</div>
+
+<!-- CONTAINER -->
+{% endblock %}

@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load compressed %}
+{% load staticfiles %}
+{% load timtec_markdown %}
+
+{% block head %}
+{{ block.super }}
+{% compressed_js 'lesson' %}
+{% endblock %}
+
+{% block content %}
+
+<script type="text/javascript">
+window.lessonId = {{ lesson.pk }};
+// Content type id for object type core.Unit used by django generic relations.
+window.unit_content_type_id = {{ unit_content_type_id }};
+
+$(document).ready(function() {
+    $(".nav-tabs a").click(function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+    })
+    $('a.unit').tooltip();
+})
+</script>
+
+<!-- COURSE -->
+<div id="course" class="course-lesson" ng-app="lesson">
+
+    <!-- HEADER -->
+    {% include "_course-header-inline.html"  with course=lesson.course %}
+    <!-- END HEADER -->
+
+    <!-- COURSE CONTENT -->
+    <section id="course-content" class="container">
+
+        <nav class="course-lessons hidden-xs">
+            <div class="row">
+                <div class="col-lg-7 col-md-7 col-sm-12">
+                    <h1>{{ lesson.name }}</h1>
+                    <p class="description">{{ lesson.desc }}</p>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-12">
+                    <!-- UNITS-DROPDOWN-NAV -->
+                    <nav class="lesson-units pull-right">
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-sm btn-info"><span class="etapa-lbl">Etapa</span> {{ lesson.name }}</button>
+                          <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
+                              <i class="fa fa-chevron-down"></i>
+                          </button>
+                          <ul class="dropdown-menu">
+                              {% for list_lesson in lesson.course.public_lessons %}
+                                  <li><a href="{% url 'lesson' list_lesson.course.slug list_lesson.slug %}">{{ list_lesson.name }}</a></li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+                    </nav>
+                    <!-- END UNITS-DROPDOWN-NAV -->
+                </div>
+            </div>
+        </nav>
+
+        <!-- LESSON NAVIGATION FOR PHONE -->
+        <p class="visible-xs">
+            <select onchange="document.location=this.value" class="form-control">
+                <option>{{lesson.name}}</option>
+                {% for list_lesson in lesson.course.public_lessons %}
+                    {% if list_lesson.name != lesson.name %}
+                        <option value="{% url 'lesson' list_lesson.course.slug list_lesson.slug %}">{{ list_lesson.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </p>
+        <!-- END LESSON NAVIGATION FOR PHONE -->
+
+        <!-- ROW -->
+        <div class="row" ng-controller="MainCtrl">
+
+            {% verbatim %}
+            <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+            <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
+                <!-- UNITS -->
+                <div class="units">
+                    <a style="display:block;" data-placement="right"
+                       title="{{unit.video.name}}"
+                       href="#/{{$index+1}}"
+                       class="has-tooltip unit track" data-toggle="tooltip"
+                       ng-repeat="unit in lesson.units"
+                       ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
+                           <i class="fa fa-caret-right"></i>
+                           <span class="position" ng-bind="unit.position+1"></span>
+                           <i class="fa fa-list" ng-show="unit.activities"></i>
+                    </a>
+                </div>
+                <!-- END UNITS -->
+            </div>
+            <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+
+            {% endverbatim %}
+
+
+            <!-- NOTES -->
+            <div class="col-lg-4 col-md-4 col-sm-3 hidden-xs notes-container">
+                <ul class="nav nav-tabs">
+                    <li class="active professor-notes"><a href="#side-notes" data-toggle="tab">
+                        <i class="fa fa-hand-o-up"></i> {% trans 'Professor notes' %}</a>
+                    </li>
+                    <li><a href="#notes" data-toggle="tab">
+                        <i class="fa fa-pencil-square-o"></i> {% trans 'Annotations' %}</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="side-notes">
+                        <span ng-bind-html="currentUnit.side_notes|markdown"></span>
+                        <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
+                    </div>
+                    {% include "_notes_inline.html" %}
+                </div>
+            </div>
+            <!-- END NOTES -->
+
+            <div class="col-lg-7 col-md-7 col-sm-11">
+                <div ng-show="section=='video'">
+                    <div class="video">
+                        <div class="row">
+                            <div id="player-outter" class="col-lg-12 col-md-12 col-sm-12">
+                                <div id="youtube-player" youtube-player></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="section=='activity'">
+                    <div class="course-activity">
+                        <ng:include src="activityTemplateUrl"></ng:include>
+                        <div ng-show="answer.correct" class="alert alert-success">
+                            <span>Reposta submetida com sucesso</span>
+                        </div>
+
+                        <div ng-show="answer.correct === false" class="alert alert-danger">
+                            <span>Reposta incorreta. Se tiver dúvidas não esqueça de usar o fórum abaixo =)</span>
+                        </div>
+
+                        <div class="submit">
+                            <!-- if no answer or incorrect -->
+                            <div class="row" ng-if="! answer.correct">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep(true)">Próximo passo</button>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 textright">
+                                    <button class="btn btn-success" ng-click="sendAnswer()">{% trans 'Send' %}</button>
+                                </div>
+                            </div>
+                            <!-- if correct -->
+                            <div class="row" ng-if="answer.correct">
+                                <div class="col-lg-12 col-md-12 col-sm-12 textright">
+                                    <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="section=='comment'" class="comment">
+                    <div class="panel panel-default" style="min-height: 368px;">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">{% trans 'Professor comment' %}</h2>
+                        </div>
+                        <div class="panel-body" ng-bind-html="currentActivity.comment|markdown"></div>
+                    </div>
+                    <div class="row" ng-if="answer.correct">
+                        <div class="col-lg-12 col-md-12 col-sm-12 textright">
+                            <button class="btn btn-success" ng-click="nextLesson()">próxima etapa</button>
+                            <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- div ng-view></div -->
+        </div>
+        <!-- END ROW -->
+
+        <!-- FORUM -->
+        <div class="row">
+            <div class="col-lg-11 col-sm-10 col-lg-offset-1 col-sm-offset-1">
+                {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
+            </div>
+
+        <!-- END FORUM -->
+        </div>
+    </section>
+    <!-- END COURSE CONTENT -->
+</div>
+<!-- END COURSE -->
+
+{% endblock %}

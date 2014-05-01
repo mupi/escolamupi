@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+        <!-- CONTAINER -->
+        <div id="home" class="container">
+            <h1>Carreira de Web Design</h1>
+            <h2>Aprenda a criar websites na prática</h2>
+            <p class="alert alert-info">Aprenda <span class="label label-default">HTML & CSS</span> com os projetos abaixo</p>
+            <section id="courses-tree" class="courses">
+
+                {% for course in courses %}
+                <!-- COURSE -->
+                    <div class="course {% if course.name == 'Perfil da equipe' %}proj1{% endif %}{% if course.name == 'Discografia: novo álbum' %}proj2{% endif %}{% if course.name == 'Quentinhas' %}proj3{% endif %}{% if course.name == 'Perfil público' %}proj4{% endif %}{% if course.name == 'Homenagem ao Cordel' %}proj5{% endif %}">
+                        <a href="{% url 'course_intro' course.slug %}">
+                        <h2>{{ course.name }}</h2>
+
+                        {% if course.thumbnail %}
+                            <div class="thumb_container">
+                                <img src="{{ MEDIA_URL }}{{ course.thumbnail }}" class="img-responsive center-block">
+                            </div>
+                        {% endif %}
+
+                        <p>{{course.abstract}}</p>
+                        <div class="btn-group">
+                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success">{% trans 'Go to course' %}</a>
+                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                        </div>
+                        </a>
+                    </div>
+                <!-- END COURSE -->
+                {% endfor %}
+            </section>
+            <section class="badges">
+                <h3>Badges disponíveis:</h3>
+                <div class="row">
+                    <div class="col-md-2 col-xs-6">
+                        <p class="badge-img">
+                            <img src="{% static 'img/htmlovo.png' %}" />
+                        </p>
+                        <h4>HTML nível 1</h4>
+                        <p>Reconhece um código HTML e consegue estruturar uma página básica.</p>
+                    </div>
+                    <div class="col-md-2 col-xs-6">
+                        <p class="badge-img">
+                            <img src="{% static 'img/cssovo.png' %}" />
+                        </p>
+                        <h4>CSS nível 1</h4>
+                        <p>Reconhece um código em CSS e conhece as propriedades básicas de estilização.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- CONTAINER -->
+{% endblock %}

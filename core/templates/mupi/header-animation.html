@@ -1,0 +1,85 @@
+{% load staticfiles %}
+{% load i18n %}
+
+<div id="header-animation">
+	<canvas id="text-canvas" width="500" height="400"></canvas>
+	<canvas id="stage-canvas" width="500" height="400"></canvas>
+
+	<nav id="home-nav" class="navbar navbar-default container" role="navigation">
+	  <div class="container">
+
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#"><img src="{% static 'img/logo.png' %}" /></a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="main-navbar">
+	      <ul class="nav navbar-nav navbar-right">
+	        <li>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
+                <div class="dropdown-menu">
+                    <form onclick="event.stopPropagation()" method="post" action="{% url 'timtec_login' %}" class="navbar-form">{% csrf_token %}
+                        <div class="row">
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12{% if login_form.errors %} has-error{% endif %}">
+                                <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans 'Username' %}</label>
+                                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                    <input name="username" type="text" class="form-control"
+                                           value="{{login_form.username.value}}" placeholder="{% trans 'E-mail or username' %}"/>
+                                    {% for error in login_form.username.errors %}
+                                    <small>{{error}}</small>
+                                    {% endfor error in %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12{% if login_form.errors %} has-error{% endif %}">
+                                <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans 'Password' %}</label>
+                                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                    <input name="password" type="password" class="form-control" placeholder="{% trans 'Password' %}">
+                                    {% for error in login_form.password.errors %}
+                                    <small>{{error}}</small>
+                                    {% endfor %}
+                                    {% for error in login_form.non_field_errors %}
+                                    <small>{{error}}</small>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit clearfix">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                <a href="{% url 'account_reset_password' %}">{% trans 'Forgot my password' %}</a>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textright">
+                                <button class="btn btn-success">{% trans 'Sign In' %} <i class="fa fa-sign-in"></i></button>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="row">
+                            <p class="bottom textcenter">
+                                {% load socialaccount %}
+                                <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </li>
+
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+	<div id="header-msg" class="container">
+        <h1>Inicie sua carreira como Web Designer</h1>
+        <p>Aprenda a criar sites e tire suas ideias do papel</p>
+		<a href="{% url 'account_signup' %}" class="btn btn-sm btn-success pull-right">Comece agora</a>
+	</div>
+	<!-- <p>Aqui você aprende a fezer coisas incríveis na web! ;)</p> -->
+</div>
