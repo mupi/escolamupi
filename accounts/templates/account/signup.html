@@ -13,6 +13,28 @@
                 <h2>{% trans "Sign Up" %}</h2>
             </header>
 
+	    <h1>Comece a aprender agora</h1>
+	    <p>Escolha o melhor plano para você e inicie seus estudos!</p>
+
+	    <div class="row">
+	    	<div class="col-md-3 col-md-offset-2 price-box">
+			<h2>Plano mensal</h2>
+			<p>R$39,90 por mês</p>
+			<ul>
+				<li>Acesso completa a todo o conteúdo da escola</li>
+				<li>Tire dúvidas junto à comunidade e especialistas</li>
+			</ul>	
+	    	</div>
+	    	<div class="col-md-3 col-md-offset-2 price-box">
+	    		<h2>Plano anual</h2>
+		    	<p>R$399 por ano</p>
+		    	<ul>
+				<li>Duas mensalidades <strong>grátis</strong></li>
+				<li>Acesso a todo o conteúdo</li>
+				<li>Desconto nas horas de mentoria</li>
+		    	</ul>
+	   	</div>
+	    </div>
                 <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
                     {% with errors=form.username.errors %}
                     <div class="form-group{{ errors|yesno:' has-error,' }}">
