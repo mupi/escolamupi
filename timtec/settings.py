@@ -9,20 +9,19 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
-SITE_HOME = ''
-SITE_NAME = 'Timtec'
-SITE_DOMAIN = 'timtec.com.br'
+SITE_HOME = '/'
+SITE_NAME = 'Escola Mupi'
+SITE_DOMAIN = 'escolamupi.com.br'
 
 ADMINS = (
-    ('Admin1', 'root@localhost'),
-    ('timtec-dev list', 'timtec-dev@listas.hacklab.com.br'),
+    ('mupi', 'contato@mupi.me'),
 )
 
-MANAGERS = (ADMINS[1],)
+MANAGERS = (ADMINS[0],)
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'localhost'
-DEFAULT_FROM_EMAIL = 'donotreply-dev@m.timtec.com.br'
+DEFAULT_FROM_EMAIL = 'contato@mupi.me'
 
 DATABASES = {
     'default': {
@@ -87,6 +86,7 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+#MEDIA_ROOT = '~/tmp/escola/media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -97,7 +97,8 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+#STATIC_ROOT = '~/tmp/escola/static'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static2')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
