@@ -154,12 +154,22 @@ PIPELINE_CSS = {
     },
     'public': {
         'source_filenames': (
-            'css/main.less',
+            'css/mupi.less',
         ),
         'output_filename': 'css/public.css',
         'extra_context': {
             'media': 'screen,projection,print',
         },
+    },
+    'admin': {
+        'source_filenames': (
+            'css/mupi-admin.less',
+        ),
+        'output_filename': 'css/admin.css',
+        'extra_context': {
+            'media': 'screen,projection,print',
+        },
+        'variant': 'datauri',
     },
 }
 
