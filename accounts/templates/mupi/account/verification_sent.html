@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+
+<div id="email-confirm" class="page">
+
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+    <div class="main-content">
+
+        <!-- CONTAINER -->
+        <div class="container">
+
+            <div class="message">
+                <p>{% trans "Validation email sent" %}.</p>
+                <p>{% trans "Check your inbox" %}!</p>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

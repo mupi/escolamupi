@@ -1,0 +1,12 @@
+Olá!
+
+Para confirmar seu cadastro e iniciar sua carreira na escola Mupi, por favor:
+
+1 - Acesse o link abaixo para confirmar seu cadastro:
+{{ activate_url }}
+2 - Realize o pagamento clicando em: http://escolamupi.com.br/accounts/payment
+
+Após esses dois passos confirmados, enviaremos as instruções de início dos projetos.
+
+Até breve!
+Equipe Mupi
