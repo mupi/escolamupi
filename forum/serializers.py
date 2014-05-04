@@ -6,6 +6,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     votes = serializers.SerializerMethodField('count_votes')
     username = serializers.SerializerMethodField('get_username')
+    user_obj = serializers.SerializerMethodField('get_user')
     timestamp = serializers.DateTimeField(read_only=True)
     hidden_to_user = serializers.SerializerMethodField('is_hidden')
     moderator = serializers.SerializerMethodField('is_moderator')
@@ -13,7 +14,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ('id', 'title', 'course', 'answers', 'text', 'slug',
-                  'votes', 'timestamp', 'username', 'hidden',
+                  'votes', 'timestamp', 'username', 'user_obj', 'hidden',
                   'hidden_by', 'hidden_to_user', 'moderator', 'hidden_justification',)
 
     def count_votes(self, obj):
@@ -27,6 +28,15 @@ class QuestionSerializer(serializers.ModelSerializer):
             return obj.user.username
         else:
             return u''
+
+    def get_user(self, obj):
+        if obj:
+            from accounts.serializers import TimtecUserSerializer
+            tus = TimtecUserSerializer(obj.user)
+            return tus.data
+        else:
+            return u''
+
 
     def is_hidden(self, obj):
         if hasattr(obj, 'hidden_to_user'):
@@ -43,11 +53,12 @@ class AnswerSerializer(serializers.ModelSerializer):
 
     votes = serializers.SerializerMethodField('count_votes')
     username = serializers.SerializerMethodField('get_username')
+    user_obj = serializers.SerializerMethodField('get_user')
     timestamp = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Answer
-        fields = ('id', 'question', 'text', 'votes', 'timestamp', 'username')
+        fields = ('id', 'question', 'text', 'votes', 'timestamp', 'username', 'user_obj',)
 
     def count_votes(self, obj):
         if obj:
@@ -58,6 +69,14 @@ class AnswerSerializer(serializers.ModelSerializer):
     def get_username(self, obj):
         if obj:
             return obj.user.username
+        else:
+            return u''
+
+    def get_user(self, obj):
+        if obj:
+            from accounts.serializers import TimtecUserSerializer
+            tus = TimtecUserSerializer(obj.user)
+            return tus.data
         else:
             return u''
 

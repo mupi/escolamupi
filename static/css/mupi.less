@@ -1477,7 +1477,6 @@ a, a:hover, a:active {
 #forum, #forum-inline {
   #forum-content {
     header {
-      border-bottom: 1px solid @gray-lighter;
       padding-bottom: 20px;
       h1 {
         margin-top: 25px;
@@ -1492,6 +1491,13 @@ a, a:hover, a:active {
       margin-bottom: 20px;
       padding: 20px;
     }
+    .avatar{
+      max-height: 50px;
+      overflow: hidden;
+      img{
+        max-width: 100%;
+      }
+    }
     .questions {
       background-color: #fff;
       padding: 15px;
@@ -1502,8 +1508,21 @@ a, a:hover, a:active {
       display: block;
       margin-top: 10px;
     }
+    .forum-menu{
+      li > a{
+        display: block;
+        padding: 10px;
+        border-radius: 4px;
+      }
+    }
+    .answers{
+      h2{
+        border-top: 1px solid @gray-lighter;
+        font-size: 12px;
+        padding: 10px 0;
+      }
+    }
     article {
-      border-bottom: 1px solid @gray-lighter;
       padding: 10px 0;
       // IF IS HIDDEN
       &.is-hidden {
@@ -1530,7 +1549,12 @@ a, a:hover, a:active {
       .author{
         color: #666;
       }
-
+      .question-content, .answer-content{
+        background-color: #FFF;
+        padding: 10px 0;
+        margin-bottom: 5px;
+        border-radius: 4px;
+      }
       .stats {
         background-color: @gray-lighter;
         font-size: 12px;
@@ -1550,7 +1574,6 @@ a, a:hover, a:active {
           line-height: 1.5;
         }
         .author {
-          border-top: 1px solid @gray-lighter;
           padding-top: 10px;
           text-align: right;
           font-size: 12px;
@@ -1559,8 +1582,9 @@ a, a:hover, a:active {
       .rating {
         text-align:center;
         width: 80px;
+        padding-right: 0;
         .arrow-up {
-          .arrow-up(21px, @gray-light);
+          .arrow-up(16px, @gray-light);
           margin:0 auto;
           &:hover, &.active {
             border-bottom-color:@brand-warning;
@@ -1568,7 +1592,7 @@ a, a:hover, a:active {
           }
         }
         .arrow-down {
-          .arrow-down(21px, @gray-light);
+          .arrow-down(16px, @gray-light);
           margin:0 auto;
           .size(0,0);
           &:hover, &.active {
@@ -1578,7 +1602,7 @@ a, a:hover, a:active {
         }
         .votes {
           font-family:"Questrial";
-          font-size:18px;
+          font-size:16px;
           margin:6px 0;
           text-align:center;
         }
@@ -1599,8 +1623,9 @@ a, a:hover, a:active {
         .rating {
           text-align:center;
           width: 60px;
+          padding-right: 0;
           .arrow-up {
-            .arrow-up(14px, @gray-light);
+            .arrow-up(12px, @gray-light);
             margin:0 auto;
             &:hover, &.active {
               border-bottom-color:@brand-warning;
@@ -1608,7 +1633,7 @@ a, a:hover, a:active {
             }
           }
           .arrow-down {
-            .arrow-down(14px, @gray-light);
+            .arrow-down(12px, @gray-light);
             margin:0 auto;
             .size(0,0);
             &:hover, &.active {
