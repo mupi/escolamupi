@@ -48,20 +48,22 @@
                         </div>
                     </section>
                 </div>
+            {% endverbatim angularjs %}
+
                 <div class="col-md-3">
                     <ul class="nav forum-menu">
-                        <li><a href="{% url 'forum' course.slug %}">
+                        <li><a href="{% url 'forum' question_django.course.slug %}">
                             <span class="fa fa-comments"></span>
                             Ver todas as perguntas deste projeto</a>
                         </li>
-                        <!-- <li><a href="#">
+                        <li><a href="{% url 'forum_question_create' question_django.course.slug %}">
                             <span class="fa fa-question-circle"></span>
-                            Criar uma nova pergunta</a></li> -->
+                            Criar uma nova pergunta</a></li>
                     </ul>
                 </div>
+
             </article>
 
-            {% endverbatim angularjs %}
 
             <!-- ANSWERS -->
             <section class="answers">
