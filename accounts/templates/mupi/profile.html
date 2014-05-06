@@ -5,8 +5,8 @@
 
 <div id="profile" class="page container">
   <div class="row profile-card">
-      <div class="col-md-3">
-          <img id="profile-avatar" src="{{ user.get_picture_url }}" class="img-rounded">
+      <div class="col-md-3 profile-avatar">
+          <img src="{{ user.get_picture_url }}" class="img-rounded">
       </div>
       <div class="col-md-9">
         <h3 class="top">{{profile_user.first_name}} {{profile_user.last_name}}</h3>
@@ -28,7 +28,7 @@
         </p>
 
         {% if profile_user.site %}
-          <p><a href="{{profile_user.site}}" target="_blank">www</a></p>
+          <p><a href="{{profile_user.site}}" target="_blank"><i class="fa fa-external-link"></i> www</a></p>
         {% endif %}
         {% if profile_user.biography %}
           <p>{{profile_user.biography}}</p>
