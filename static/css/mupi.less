@@ -464,7 +464,7 @@ a, a:hover, a:active {
 // PROFILE
 // ********************************************************************* //
 #profile {
-  .top(27px,27px);
+  .top(15px,15px);
   label.upload-avatar {
     position:relative;
     &:hover span {
@@ -1625,7 +1625,7 @@ a, a:hover, a:active {
           width: 60px;
           padding-right: 0;
           .arrow-up {
-            .arrow-up(12px, @gray-light);
+            /*.arrow-up(12px, @gray-light);*/
             margin:0 auto;
             &:hover, &.active {
               border-bottom-color:@brand-warning;
@@ -1633,7 +1633,7 @@ a, a:hover, a:active {
             }
           }
           .arrow-down {
-            .arrow-down(12px, @gray-light);
+            /*.arrow-down(12px, @gray-light);*/
             margin:0 auto;
             .size(0,0);
             &:hover, &.active {
@@ -1740,31 +1740,32 @@ a, a:hover, a:active {
     }
   }
 }
-
+.profile-card{
+  background: url('../img/grey.png');
+  position: relative;
+  padding: 10px;
+  img{
+    max-width: 100%;
+  }
+  .name{
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  .edit_profile{
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+  }
+  p > span{
+    margin-right: 10px;
+  }
+}
 
 // MY COURSES
 // ********************************************************************* //
 #my-courses {
   .profile-card{
-    background: url('../img/grey.png');
-    position: relative;
-    margin-top: 30px;
-    padding: 10px;
-    img{
-      max-width: 100%;
-    }
-    .name{
-      font-size: 1.1em;
-      font-weight: bold;
-    }
-    .edit_profile{
-      position: absolute;
-      right: 0;
-      bottom: -5px;
-    }
-    p > span{
-      margin-right: 10px;
-    }
+      margin-top: 30px;
   }
   .instructions{
       font-size: 1.1em;
