@@ -470,6 +470,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'django_markdown',
     'paypal.standard.ipn',
+    'paypalrestsdk',
 
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
@@ -477,6 +478,12 @@ INSTALLED_APPS = (
 
 PAYPAL_TEST = True
 PAYPAL_RECEIVER_EMAIL = "contato-facilitator@mupi.me"
+
+# PAYPAL_RECEIVER_EMAIL = "virgilio.santos@gmail.com"
+
+PAYPAL_MODE='sandbox' # sandbox or live
+PAYPAL_CLIENT_ID=''
+PAYPAL_CLIENT_SECRET=''
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
