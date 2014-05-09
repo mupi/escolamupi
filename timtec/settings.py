@@ -363,6 +363,10 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'core/templates/mupi'),
     os.path.join(PROJECT_ROOT, 'accounts/templates/mupi'),
     os.path.join(PROJECT_ROOT, 'forum/templates/mupi'),
+    
+    os.path.join(PROJECT_ROOT, 'notes/templates/mupi'),
+    os.path.join(PROJECT_ROOT, 'payments/templates/mupi'),
+	
     #os.path.join(PROJECT_ROOT, 'administration/templates'),
     #os.path.join(PROJECT_ROOT, 'core/templates'
 )
@@ -455,6 +459,8 @@ INSTALLED_APPS = (
     'course_material',
     'notes',
     'reports',
+    'payments',
+
     # django-metron
     'metron',
     # allauth

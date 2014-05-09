@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+
+<!-- COURSE -->
+<div id="payment" class="course-intro">
+
+    <!-- HEADER -->
+	<header class="container">
+        	<!-- PAGE-HEADER -->
+	        <div class="page-header">
+
+			<h1>Em breve página de pagamentos</h1>
+			<!-- writes out the form tag automatically -->
+
+
+			{{ form_monthly }}
+			{{ form_yearly }}
+		</div>
+	</header>
+</div>
+{% endblock %}
