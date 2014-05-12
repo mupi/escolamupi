@@ -18,7 +18,7 @@ from core.views import (CourseView, CoursesView, CourseViewSet, CourseThumbViewS
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
                         TwitterApi, AcceptTermsView, GuideView,)
-from payments.views import AccountPaymentView
+from payments.views import (AccountPaymentView, CreatePaymentView, PlansView,)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -105,7 +105,9 @@ urlpatterns = patterns(
     # The django-allauth
     url(r'^accounts/', include('allauth.urls')),
     url(r'^accounts/payment', AccountPaymentView.as_view(), name="account_payment"),
+    url(r'^accounts/payment_redirect', CreatePaymentView.as_view(), name="account_payment"),
     url(r'^accounts/notify_payment', include('paypal.standard.ipn.urls')),
+    url(r'^accounts/plans', PlansView.as_view()),
 
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),

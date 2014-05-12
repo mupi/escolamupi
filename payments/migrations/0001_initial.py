@@ -12,30 +12,41 @@ class Migration(SchemaMigration):
         db.create_table(u'payments_userpayments', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('payment_id', self.gf('django.db.models.fields.CharField')(unique=True, max_length=30)),
-            ('user_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['accounts.TimtecUser'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['accounts.TimtecUser'])),
             ('payment_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
             ('payment_status', self.gf('django.db.models.fields.CharField')(max_length=30)),
         ))
         db.send_create_signal(u'payments', ['UserPayments'])
 
-        # Adding model 'UserRegistrationData'
-        db.create_table(u'payments_userregistrationdata', (
+        # Adding model 'Plans'
+        db.create_table(u'payments_plans', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['accounts.TimtecUser'])),
-            ('registration_type', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('expiration_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('last_payment', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['payments.UserPayments'])),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('description', self.gf('django.db.models.fields.CharField')(max_length=300)),
+        ))
+        db.send_create_signal(u'payments', ['Plans'])
+
+        # Adding model 'UserPlanData'
+        db.create_table(u'payments_userplandata', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['accounts.TimtecUser'])),
+            ('plan', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['payments.Plans'])),
+            ('expiration_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
+            ('last_payment', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['payments.UserPayments'], null=True)),
             ('user_status', self.gf('django.db.models.fields.BooleanField')()),
         ))
-        db.send_create_signal(u'payments', ['UserRegistrationData'])
+        db.send_create_signal(u'payments', ['UserPlanData'])
 
 
     def backwards(self, orm):
         # Deleting model 'UserPayments'
         db.delete_table(u'payments_userpayments')
 
-        # Deleting model 'UserRegistrationData'
-        db.delete_table(u'payments_userregistrationdata')
+        # Deleting model 'Plans'
+        db.delete_table(u'payments_plans')
+
+        # Deleting model 'UserPlanData'
+        db.delete_table(u'payments_userplandata')
 
 
     models = {
@@ -81,21 +92,27 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        u'payments.plans': {
+            'Meta': {'object_name': 'Plans'},
+            'description': ('django.db.models.fields.CharField', [], {'max_length': '300'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '30'})
+        },
         u'payments.userpayments': {
             'Meta': {'object_name': 'UserPayments'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'payment_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'payment_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
             'payment_status': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'user_id': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.TimtecUser']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.TimtecUser']"})
         },
-        u'payments.userregistrationdata': {
-            'Meta': {'object_name': 'UserRegistrationData'},
-            'expiration_date': ('django.db.models.fields.DateTimeField', [], {}),
+        u'payments.userplandata': {
+            'Meta': {'object_name': 'UserPlanData'},
+            'expiration_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_payment': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['payments.UserPayments']"}),
-            'registration_type': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'user_id': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.TimtecUser']"}),
+            'last_payment': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['payments.UserPayments']", 'null': 'True'}),
+            'plan': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['payments.Plans']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.TimtecUser']"}),
             'user_status': ('django.db.models.fields.BooleanField', [], {})
         }
     }

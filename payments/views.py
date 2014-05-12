@@ -1,43 +1,54 @@
 from django.shortcuts import render
-from paypal.standard.forms import PayPalPaymentsForm
-
 from django.views.generic.base import TemplateView
-
+from django.core.urlresolvers import reverse
 from django.conf import settings
+
+from paypal.standard.forms import PayPalPaymentsForm
 from braces.views import LoginRequiredMixin
 
 from django.core.urlresolvers import reverse
 
 class AccountPaymentView(LoginRequiredMixin, TemplateView):
-    template_name = "payment.html"
-    context_object_name = 'context'
-    base_url = "https://escolamupi.com.br"
+	template_name = "payment.html"
+	context_object_name = 'context'
+	base_url = "https://escolamupi.com.br"
 
-    if settings.DEBUG:
-        base_url = "http://localhost:8000"
+	if settings.DEBUG:
+		base_url = "http://localhost:8000"
 
-    def get(self, request, **kwargs):
-	u = self.request.user
-	
-	settings.PAYPAL_DICT_MONTHLY['custom'] = "user_mail=" + u.email + "&user_id=" + str(u.id)
-	settings.PAYPAL_DICT_YEARLY['custom'] = "user_mail=" + u.email + "&user_id=" + str(u.id)
-	
-	settings.PAYPAL_DICT_MONTHLY['notify_url'] = settings.SITE_URL + reverse('paypal-ipn')
-        form_monthly = PayPalPaymentsForm(initial=settings.PAYPAL_DICT_MONTHLY)
+	def get(self, request, **kwargs):
+		u = self.request.user
 
-	settings.PAYPAL_DICT_YEARLY['notify_url'] = settings.SITE_URL + reverse('paypal-ipn')
-        form_yearly = PayPalPaymentsForm(initial=settings.PAYPAL_DICT_YEARLY)
+		settings.PAYPAL_DICT_MONTHLY['custom'] = "user_mail=" + u.email + "&user_id=" + str(u.id)
+		settings.PAYPAL_DICT_YEARLY['custom'] = "user_mail=" + u.email + "&user_id=" + str(u.id)
 
-        if settings.DEBUG:
-		context = {
-        	        "form_monthly": form_monthly.sandbox(),
-                	"form_yearly": form_yearly.sandbox()
-	        }
-	else:
-		context = {
-        	        "form_monthly": form_monthly.sandbox(),
-                	"form_yearly": form_yearly.sandbox()
-	        }
+		settings.PAYPAL_DICT_MONTHLY['notify_url'] = settings.SITE_URL + reverse('paypal-ipn')
+		form_monthly = PayPalPaymentsForm(initial=settings.PAYPAL_DICT_MONTHLY)
 
-        return self.render_to_response(context)
+		settings.PAYPAL_DICT_YEARLY['notify_url'] = settings.SITE_URL + reverse('paypal-ipn')
+		form_yearly = PayPalPaymentsForm(initial=settings.PAYPAL_DICT_YEARLY)
+
+		if settings.DEBUG:
+			context = {
+				"form_monthly": form_monthly.sandbox(),
+				"form_yearly": form_yearly.sandbox()
+			}
+		else:
+			context = {
+				"form_monthly": form_monthly.sandbox(),
+				"form_yearly": form_yearly.sandbox()
+			}
+
+		return self.render_to_response(context)
+
+class PlansView(LoginRequiredMixin, TemplateView):
+	template_name = "plans.html"
+
+	def get_context_data(self, **kwargs):
+		return super(PlansView, self).get_context_data(**kwargs)
+
+	def get(self, request, **kwargs):
+		return super(PlansView, self).get(request, **kwargs)
+
+
 

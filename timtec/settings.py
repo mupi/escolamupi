@@ -12,6 +12,7 @@ SITE_ID = 1
 SITE_HOME = '/'
 SITE_NAME = 'Escola Mupi'
 SITE_DOMAIN = 'escolamupi.com.br'
+SITE_URL = 'http://escolamupi.com.br'
 
 ADMINS = (
     ('mupi', 'contato@mupi.me'),
@@ -363,10 +364,8 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'core/templates/mupi'),
     os.path.join(PROJECT_ROOT, 'accounts/templates/mupi'),
     os.path.join(PROJECT_ROOT, 'forum/templates/mupi'),
-    
     os.path.join(PROJECT_ROOT, 'notes/templates/mupi'),
     os.path.join(PROJECT_ROOT, 'payments/templates/mupi'),
-	
     #os.path.join(PROJECT_ROOT, 'administration/templates'),
     #os.path.join(PROJECT_ROOT, 'core/templates'
 )

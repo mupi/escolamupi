@@ -150,8 +150,14 @@ class UserCoursesView(LoginRequiredMixin, TemplateView):
 
     @csrf_exempt
     def dispatch(self, *args, **kwargs):
-        return super(UserCoursesView, self).dispatch(*args, **kwargs)
-
+	from payments.models import UserPlanData
+	try:
+		print self.request.user.id
+		upd = UserPlanData.objects.get(user_id=self.request.user.id)
+	except:
+		return redirect('/accounts/plans', *args, **kwargs)
+	else:
+        	return super(UserCoursesView, self).dispatch(*args, **kwargs)
 
 class EnrollCourseView(LoginRequiredMixin, RedirectView):
     permanent = False

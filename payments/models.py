@@ -10,15 +10,19 @@ from paypal.standard.ipn.signals import (payment_was_successful, subscription_si
 
 class UserPayments (models.Model):
 	payment_id = models.CharField(_('Payment ID'), max_length=30, blank=False, unique=True)
-	user_id = models.ForeignKey(TimtecUser)
+	user = models.ForeignKey(TimtecUser)
 	payment_date = models.DateTimeField(_('Payment Date'), default=timezone.now)
 	payment_status = models.CharField(_('Payment Status'), max_length=30, blank=False)
 
-class UserRegistrationData (models.Model):
-	user_id = models.ForeignKey(TimtecUser)
-	registration_type = models.CharField(_('Registration Type'), max_length=30, blank=False)
-	expiration_date = models.DateTimeField(_('Expiration Date'))
-	last_payment = models.ForeignKey(UserPayments)
+class Plans(models.Model):
+	name =  models.CharField(_('Plan Name'), max_length=30, blank=False)
+	description =  models.CharField(_('Plan Description'), max_length=300, blank=False)
+
+class UserPlanData (models.Model):
+	user = models.ForeignKey(TimtecUser)
+	plan = models.ForeignKey(Plans)
+	expiration_date = models.DateTimeField(_('Expiration Date'), null=True)
+	last_payment = models.ForeignKey(UserPayments, null=True)
 	user_status = models.BooleanField()
 
 def paypal_signal_was_successful(sender, **kwargs):
