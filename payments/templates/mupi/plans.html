@@ -1,1 +1,31 @@
-teste
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+{% load timtec_markdown %}
+
+<!-- COURSE -->
+<div id="payment" class="course-intro">
+
+    <!-- HEADER -->
+	<header class="container">
+        	<!-- PAGE-HEADER -->
+	        <div class="page-header">
+
+			<h1>Escolha seu Plano de preferência!</h1>
+			<!-- writes out the form tag automatically -->
+		</div>
+	</header>
+	<form action="" method="post">{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Assinar!" />
+		<div>
+			{% for plan in plans %}
+			<section class="plandescription" id="plan{{plan.id}}">
+				{{ plan.description_markdown | timtec_markdown  }}
+			</section>
+			{% endfor %}
+		</div>	
+	</form>
+</div>
+{% endblock %}
