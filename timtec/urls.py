@@ -106,7 +106,7 @@ urlpatterns = patterns(
     url(r'^accounts/', include('allauth.urls')),
     url(r'^accounts/payment', AccountPaymentView.as_view(), name="account_payment"),
     url(r'^accounts/notify_payment', include('paypal.standard.ipn.urls')),
-    url(r'^accounts/plans', PlansView.as_view()),
+    url(r'^accounts/plans', PlansView.as_view(), name='plan-list'),
 
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),

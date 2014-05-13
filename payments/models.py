@@ -13,17 +13,41 @@ class UserPayments (models.Model):
 	user = models.ForeignKey(TimtecUser)
 	payment_date = models.DateTimeField(_('Payment Date'), default=timezone.now)
 	payment_status = models.CharField(_('Payment Status'), max_length=30, blank=False)
+	class Meta:
+        	verbose_name = _('Payment')
+	        verbose_name_plural = _('Payments')
 
 class Plans(models.Model):
 	name =  models.CharField(_('Plan Name'), max_length=30, blank=False)
-	description =  models.CharField(_('Plan Description'), max_length=300, blank=False)
+	description =  models.TextField(max_length=300, blank=False)
+	description_markdown = models.TextField(_('Plan Description'), blank=True)
+	period = models.IntegerField(_('Period'), null=True)
+
+	def save(self):
+		import markdown
+		self.description = markdown.markdown(self.description_markdown)
+	        super(Plans, self).save() # Call the "real" save() method.
+
+	class Meta:
+        	verbose_name = _('Plan')
+	        verbose_name_plural = _('Plans')
+
+	def __unicode__(self):
+		return self.name
 
 class UserPlanData (models.Model):
 	user = models.ForeignKey(TimtecUser)
-	plan = models.ForeignKey(Plans)
+	plan = models.ForeignKey(Plans, verbose_name=_("Plan"))
 	expiration_date = models.DateTimeField(_('Expiration Date'), null=True)
 	last_payment = models.ForeignKey(UserPayments, null=True)
 	user_status = models.BooleanField()
+
+	class Meta:
+        	verbose_name = _('User Plan and Data')
+	        verbose_name_plural = _('User Plans and Data')
+
+	def __unicode__(self):
+		return self.plan.name
 
 def paypal_signal_was_successful(sender, **kwargs):
 	# Verify if the message is from paypal
