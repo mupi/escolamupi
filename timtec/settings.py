@@ -380,6 +380,8 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'core.context_processors.contact_form',
     'core.context_processors.site_settings',
     'timtec.locale_context_processor.locale',
+    'django.core.context_processors.media',
+    'payments.context_processors.test_user_paid',
 )
 
 # Django Suit configuration example

@@ -152,7 +152,6 @@ class UserCoursesView(LoginRequiredMixin, TemplateView):
     def dispatch(self, *args, **kwargs):
 	from payments.models import UserPlanData
 	try:
-		print self.request.user.id
 		upd = UserPlanData.objects.get(user_id=self.request.user.id)
 	except:
 		return redirect('/accounts/plans', *args, **kwargs)
