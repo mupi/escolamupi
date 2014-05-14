@@ -7,8 +7,6 @@ from django.conf import settings
 from paypal.standard.forms import PayPalPaymentsForm
 from braces.views import LoginRequiredMixin
 
-import paypalrestsdk
-
 from .models import (Plans, UserPlanData)
 from accounts.models import TimtecUser
 

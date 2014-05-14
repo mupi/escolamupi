@@ -471,7 +471,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'django_markdown',
     'paypal.standard.ipn',
-    'paypalrestsdk',
 
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
@@ -522,22 +521,22 @@ ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 
 
-PAYPAL_DICT_MONTHLY = { 
-	"cmd": "_xclick-subscriptions", 
-	"business": PAYPAL_RECEIVER_EMAIL, 
-	"a3": "39.90", # monthly price 
-	"p3": 1, # duration of each unit (depends on unit) 
-	"t3": "M", # duration unit ("M for Month") 
-	"src": "1", # make payments recur 
-	"sra": "1", # reattempt payment on payment error 
-	"no_note": "1", # remove extra notes (optional) 
-	"item_name": "Inscrição Escola Mupi",             
+PAYPAL_DICT_MONTHLY = {
+	"cmd": "_xclick-subscriptions",
+	"business": PAYPAL_RECEIVER_EMAIL,
+	"a3": "39.90", # monthly price
+	"p3": 1, # duration of each unit (depends on unit)
+	"t3": "M", # duration unit ("M for Month")
+	"src": "1", # make payments recur
+	"sra": "1", # reattempt payment on payment error
+	"no_note": "1", # remove extra notes (optional)
+	"item_name": "Inscrição Escola Mupi",
 	#"notify_url": SITE_DOMAIN, #+ reverse('paypal-ipn'),
 	"return_url": SITE_DOMAIN + "/my-courses/",
 	"cancel_return": SITE_DOMAIN + "/accounts/payment",
 }
 
-PAYPAL_DICT_YEARLY = { 
+PAYPAL_DICT_YEARLY = {
 	"business": PAYPAL_RECEIVER_EMAIL,
 	"amount": "399.00",
 	"item_name": "Inscrição anual Escola Mupi",
