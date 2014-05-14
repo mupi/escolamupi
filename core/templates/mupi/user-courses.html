@@ -2,7 +2,12 @@
 {% load i18n %}
 
 {% block content %}
-        <!-- CONTAINER -->
+{% if user.is_authenticated %}
+	{% if not paid %}
+		{% include 'header-payment.html' %}
+	{% endif %}
+{% endif %}
+       <!-- CONTAINER -->
         <div id="my-courses" class="container">
             <div class="row">
                 <div class="col-md-8">

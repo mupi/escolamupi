@@ -6,6 +6,12 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+	{% if not paid %}
+		{% include 'header-payment.html' %}
+	{% endif %}
+{% endif %}
+
 <!-- COURSE -->
 <div id="course" class="course-intro">
 

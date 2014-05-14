@@ -46,9 +46,6 @@ window.STATIC_URL = '{{ STATIC_URL }}';
     <div id="wrap">
         {% if user.is_authenticated %}
             {% include 'header-authenticated.html' %}
-		{% if not paid %}
-			{% include 'header-payment.html' %}
-		{% endif %}
         {% else %}
             {% include 'header-guest.html' %}
             {% include 'account/login_modal.html' %}
