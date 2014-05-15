@@ -80,19 +80,20 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
 
-class ProfileView(LoginRequiredMixin, DetailView):
+class ProfileView(DetailView):
     model = get_user_model()
     template_name = 'profile.html'
     context_object_name = 'profile_user'
 
     def get_object(self):
-        if hasattr(self, 'kwargs') and 'username' in self.kwargs:
-            try:
-                return get_object_or_404(self.model, username=self.kwargs['username'])
-            except:
-                return self.request.user
-        else:
-            return self.request.user
+        try:
+		return get_object_or_404(self.model, username=self.kwargs['username'])
+	except:
+		if self.request.user.is_authenticated():
+			return self.request.user
+		else:
+			from django.http import Http404
+			raise Http404
 
 #class AccountPaymentView(LoginRequiredMixin, TemplateView):
 #    template_name = "payment.html"
@@ -104,10 +105,10 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
 #    def get(self, request, **kwargs):
 #	u = self.request.user
-	
+
 #	settings.PAYPAL_DICT_MONTHLY['custom'] = "user_mail=" + u.email + "&user_id=" + str(u.id)
 #	settings.PAYPAL_DICT_YEARLY['custom'] = "user_mail=" + u.email + "&user_id=" + str(u.id)
-	
+
 #	settings.PAYPAL_DICT_MONTHLY['notify_url'] = settings.SITE_URL + reverse('paypal-ipn')
 #        form_monthly = PayPalPaymentsForm(initial=settings.PAYPAL_DICT_MONTHLY)
 
