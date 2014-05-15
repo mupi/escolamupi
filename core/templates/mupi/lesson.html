@@ -134,31 +134,6 @@ $(document).ready(function() {
                 <div ng-show="section=='activity'">
                     <div class="course-activity">
                         <ng:include src="activityTemplateUrl"></ng:include>
-                        <div ng-show="answer.correct" class="alert alert-success">
-                            <span>Reposta submetida com sucesso</span>
-                        </div>
-
-                        <div ng-show="answer.correct === false" class="alert alert-danger">
-                            <span>Reposta incorreta. Se tiver dúvidas não esqueça de usar o fórum abaixo =)</span>
-                        </div>
-
-                        <div class="submit">
-                            <!-- if no answer or incorrect -->
-                            <div class="row" ng-if="! answer.correct">
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep(true)">Próximo passo</button>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 textright">
-                                    <button class="btn btn-success" ng-click="sendAnswer()">{% trans 'Send' %}</button>
-                                </div>
-                            </div>
-                            <!-- if correct -->
-                            <div class="row" ng-if="answer.correct">
-                                <div class="col-lg-12 col-md-12 col-sm-12 textright">
-                                    <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div ng-show="section=='comment'" class="comment">
@@ -170,7 +145,7 @@ $(document).ready(function() {
                     </div>
                     <div class="row" ng-if="answer.correct">
                         <div class="col-lg-12 col-md-12 col-sm-12 textright">
-                            <button class="btn btn-success" ng-click="nextLesson()">próxima etapa</button>
+                            <button class="btn btn-success" ng-click="nextLesson()">Próxima etapa</button>
                             <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
                         </div>
                     </div>
