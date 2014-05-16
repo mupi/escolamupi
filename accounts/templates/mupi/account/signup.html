@@ -35,14 +35,16 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 signup-form">
                     <h2>{% trans "Sign Up" %}</h2>
-                    <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
+                    <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}"
+			class="form-horizontal">{% csrf_token %}
+			<input type="hidden" name="plan" value="1" />
                         {% with errors=form.username.errors %}
                         <div class="form-group{{ errors|yesno:' has-error,' }}">
                             <label class="col-md-4 col-sm-4">{% trans "Username" %}</label>
                             <div class="col-md-8 col-sm-6">
-                                <input name="username" type="text" 
-					value="{{form.username.value |  default:''}}" 
-					class="form-control" 
+                                <input name="username" type="text"
+					value="{{form.username.value |  default:''}}"
+					class="form-control"
 					placeholder="{% trans 'Username' %}">
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
@@ -53,8 +55,8 @@
                         <div class="form-group{{ errors|yesno:' has-error,' }}">
                             <label class="col-md-4 col-sm-4">{% trans "E-mail" %}</label>
                             <div class="col-md-8 col-sm-6">
-                                <input name="email" type="email" 
-					value="{{form.email.valuei | default:''}}" 
+                                <input name="email" type="email"
+					value="{{form.email.valuei | default:''}}"
 					class="form-control" placeholder="{% trans 'Your e-mail' %}">
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
@@ -65,8 +67,10 @@
                           <div class="form-group{% if errors or form.non_field_errors %} has-error{% endif %}">
                             <label class="col-md-4 col-sm-4">{% trans "Password" %}</label>
                             <div class="col-md-8 col-sm-6">
-                                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}"></p>
-                                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}">
+                                <p><input name="password1" type="password" class="form-control"
+					placeholder="{% trans 'Really strong password' %}"></p>
+                                <input name="password2" type="password" class="form-control"
+					placeholder="{% trans 'Password confirmation' %}">
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                                 {% for error in form.non_field_errors %}<small>{{error}}</small>{% endfor %}
                             </div>
@@ -76,8 +80,13 @@
                         {% with errors=form.accept_terms.errors %}
                         <div class="form-group{{ errors|yesno:' has-error,' }}">
                             <div class="col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-5 col-sm-offset-4 col-sm-6">
-                                <input name="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} class="">
-                                <label>Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}" target="_blank">termos de uso</a></label>
+                                <input name="accept_terms" type="checkbox"
+					{% if form.accept_terms.value %}checked=""{% endif %}
+					class="">
+                                <label>Aceito os <a
+					href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}"
+					target="_blank">termos de uso</a>
+				</label>
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
                         </div>

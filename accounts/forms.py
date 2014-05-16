@@ -32,3 +32,29 @@ class ProfileEditForm(forms.ModelForm):
         if self.cleaned_data['password1']:
             self.instance.set_password(self.cleaned_data['password1'])
         return super(ProfileEditForm, self).save(commit=commit)
+
+
+class SignupForm(forms.Form):
+    from payments.models import Plans
+    accept_terms = forms.BooleanField(label=_('Accept '), initial=True, required=True)
+    plan = forms.ModelChoiceField(Plans)
+
+    def save(self, user):
+        user.accepted_terms = True
+        user.save()
+
+        from payments.models import UserPlanData
+        from payments.models import Plans
+        from datetime import datetime
+        import time
+
+        dt = datetime.now()
+        #p = Plans.objects.get(id=self.data['plan'])
+        p = Plans.objects.get(id=2)
+        dt = datetime.fromtimestamp(int(time.mktime(dt.timetuple()))
+                        + p.period)
+
+        upd = UserPlanData(user=user, plan=p, expiration_date = dt,
+                user_status=False)
+
+        upd.save()
