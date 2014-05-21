@@ -161,11 +161,13 @@ def paypal_signal_was_successful(sender, **kwargs):
 
 
 def paypal_signal_subscription_signup(sender, **kwargs):
+    from urlparse import parse_qs
+
     custom = parse_qs(sender.custom)
-    user = TimtecUser.objects.get(id=custom['user_id'][0])
+    user = TimtecUser.objects.get(email=custom['user_mail'][0])
 
     message = " \
-                    O usuario " + user() + " realizou pagamento \
+                    O usuario " + user.username + " realizou pagamento \
                     do tipo: " + str(sender.txn_type) + " \
                   "
     send_mail("[Mupi] Nova assinatura",

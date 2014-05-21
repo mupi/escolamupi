@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block content %}
+{% load timtec_markdown %}
 
 <div id="signup" class="page">
     <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
@@ -12,31 +13,21 @@
             <p>Escolha o melhor plano para você e inicie seus estudos!</p>
 
             <div class="row">
+                {% for p in plans %}
                 <div class="col-md-3 col-md-offset-2 price-box">
-                    <h2>Plano mensal</h2>
-                    <p>R$39,90 por mês</p>
-                    <ul>
-                        <li>Acesso completa a todo o conteúdo da escola</li>
-                        <li>Tire dúvidas junto à comunidade e especialistas</li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-md-offset-2 price-box">
-                    <h2>Plano anual</h2>
-                    <p>R$399 por ano</p>
-                    <ul>
-                        <li>Duas mensalidades <strong>grátis</strong></li>
-                        <li>Acesso a todo o conteúdo</li>
-                        <li>Desconto nas horas de mentoria</li>
-                    </ul>
+                    <h2>{{ p.name }}</h2>
 
+                    <section class="plandescription" id="plan{{plan.id}}">
+                        {{ plan.description_markdown | timtec_markdown  }}
+                    </section>
                 </div>
+                {% endfor %}
             </div>
-
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 signup-form">
                     <h2>{% trans "Sign Up" %}</h2>
                     <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}"
-			            class="form-horizontal">{% csrf_token %}
+                        class="form-horizontal">{% csrf_token %}
                         {% with errors=form.username.errors %}
                         <div class="form-group">
                             <label class="col-md-4 col-sm-4">{% trans "Plan" %}</label>
@@ -48,9 +39,9 @@
                             <label class="col-md-4 col-sm-4">{% trans "Username" %}</label>
                             <div class="col-md-8 col-sm-6">
                                 <input name="username" type="text"
-					value="{{form.username.value |  default:''}}"
-					class="form-control"
-					placeholder="{% trans 'Username' %}">
+                    value="{{form.username.value |  default:''}}"
+                    class="form-control"
+                    placeholder="{% trans 'Username' %}">
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
                         </div>
@@ -61,8 +52,8 @@
                             <label class="col-md-4 col-sm-4">{% trans "E-mail" %}</label>
                             <div class="col-md-8 col-sm-6">
                                 <input name="email" type="email"
-					value="{{form.email.valuei | default:''}}"
-					class="form-control" placeholder="{% trans 'Your e-mail' %}">
+                    value="{{form.email.valuei | default:''}}"
+                    class="form-control" placeholder="{% trans 'Your e-mail' %}">
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
                         </div>
@@ -73,9 +64,9 @@
                             <label class="col-md-4 col-sm-4">{% trans "Password" %}</label>
                             <div class="col-md-8 col-sm-6">
                                 <p><input name="password1" type="password" class="form-control"
-					placeholder="{% trans 'Really strong password' %}"></p>
+                    placeholder="{% trans 'Really strong password' %}"></p>
                                 <input name="password2" type="password" class="form-control"
-					placeholder="{% trans 'Password confirmation' %}">
+                    placeholder="{% trans 'Password confirmation' %}">
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                                 {% for error in form.non_field_errors %}<small>{{error}}</small>{% endfor %}
                             </div>
@@ -86,12 +77,12 @@
                         <div class="form-group{{ errors|yesno:' has-error,' }}">
                             <div class="col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-5 col-sm-offset-4 col-sm-6">
                                 <input name="accept_terms" type="checkbox"
-					{% if form.accept_terms.value %}checked=""{% endif %}
-					class="">
+                    {% if form.accept_terms.value %}checked=""{% endif %}
+                    class="">
                                 <label>Aceito os <a
-					href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}"
-					target="_blank">termos de uso</a>
-				</label>
+                    href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}"
+                    target="_blank">termos de uso</a>
+                </label>
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
                         </div>

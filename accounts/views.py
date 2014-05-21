@@ -19,6 +19,7 @@ from braces.views import LoginRequiredMixin
 
 from django.forms.formsets import formset_factory
 
+from allauth.account.views import SignupView
 
 from rest_framework import viewsets
 from rest_framework import filters
@@ -94,6 +95,19 @@ class ProfileView(DetailView):
 		else:
 			from django.http import Http404
 			raise Http404
+
+class CustomSignupView(SignupView):
+
+    def get_context_data(self, **kwargs):
+        context = super(CustomSignupView, self).get_context_data(**kwargs)
+
+        from payments.models import Plans
+        plans = Plans.objects.all()
+        context['plans'] = plans
+
+        print context['plans']
+
+        return context
 
 #class AccountPaymentView(LoginRequiredMixin, TemplateView):
 #    template_name = "payment.html"
