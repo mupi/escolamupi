@@ -835,7 +835,7 @@ a, a:hover, a:active {
     position: relative;
     @media only screen
       and (min-width : 420px) {
-        height: 920px;
+        height: 1200px;
     }
     .course {
       background: #FEFEFE;
@@ -906,7 +906,7 @@ a, a:hover, a:active {
           }
         }
       }
-      &.proj2, &.proj3, &.proj4, &.proj5 {
+      &.proj2, &.proj3, &.proj4, &.proj5, &.proj6, &.proj7 {
         display: block;
         position: absolute;
         /* Smartphones (portrait) ----------- */
@@ -930,7 +930,7 @@ a, a:hover, a:active {
           }
         }
       }
-      &.proj2, &.proj4{
+      &.proj2, &.proj4, &.proj6{
         @media only screen
         and (min-width : 420px) {
           left: 10%;
@@ -950,7 +950,7 @@ a, a:hover, a:active {
           left: 5%;
         }
       }
-      &.proj3, &.proj5{
+      &.proj3, &.proj5, &.proj7{
         @media only screen
         and (min-width : 420px) {
           left: 60%;
@@ -974,6 +974,21 @@ a, a:hover, a:active {
         @media only screen
         and (min-width : 420px) {
           top: 600px;
+          &:after{
+            content: "";
+            background-color: #ddd;
+            height: 28px;
+            width: 4px;
+            position: absolute;
+            left: 50%;
+            top: 249px;
+          }
+        }
+      }
+      &.proj6, &.proj7{
+        @media only screen
+        and (min-width : 420px) {
+          top: 900px;
         }
       }
       h2{
