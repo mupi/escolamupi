@@ -6,7 +6,7 @@
         filter('markdown', ['$window', function($window) {
             return function(text) {
                 //return text ? Markdown.getSanitizingConverter().makeHtml(text) : "";
-                var tree = text ? markdown.toHTMLTree(markdown.parse(text)) : [];
+                /*var tree = text ? markdown.toHTMLTree(markdown.parse(text)) : [];
                 (function find_link_refs( htree ) {
                     if(Array.isArray(htree)){
                         if(htree[0] === "a"){
@@ -19,10 +19,11 @@
                             });
                         }
                     }    
-                })(tree)
+                })(tree)*/
             
                 //find_link_refs(tree);                
-                var html = markdown.toHTML(tree);
+                //var html = markdown.toHTML(tree);
+                var html = markdown.toHTML((text ? text : ""), 'Maruku');
                 return html;
             };
         }]);
