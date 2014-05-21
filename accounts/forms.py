@@ -3,6 +3,12 @@ from django.contrib.auth import get_user_model
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from payments.models import Plans
+from payments.models import UserPlanData
+from datetime import datetime
+import time
+
+
 User = get_user_model()
 
 
@@ -35,22 +41,15 @@ class ProfileEditForm(forms.ModelForm):
 
 
 class SignupForm(forms.Form):
-    from payments.models import Plans
     accept_terms = forms.BooleanField(label=_('Accept '), initial=True, required=True)
-    plan = forms.ModelChoiceField(Plans)
+    plan = forms.ModelChoiceField(queryset=Plans.objects.all())
 
     def save(self, user):
         user.accepted_terms = True
         user.save()
 
-        from payments.models import UserPlanData
-        from payments.models import Plans
-        from datetime import datetime
-        import time
-
         dt = datetime.now()
-        #p = Plans.objects.get(id=self.data['plan'])
-        p = Plans.objects.get(id=2)
+        p = Plans.objects.get(id=self.data['plan'])
         dt = datetime.fromtimestamp(int(time.mktime(dt.timetuple()))
                         + p.period)
 

@@ -11,12 +11,19 @@
         	<!-- PAGE-HEADER -->
 	        <div class="page-header">
 
-			<h1>Em breve página de pagamentos</h1>
+			<h1>{% trans 'Escolha sua forma de pagamento' %}</h1>
 			<!-- writes out the form tag automatically -->
 
-
-			{{ form_monthly }}
-			{{ form_yearly }}
+            <div>
+                {% for pm in payment_methods %}
+                    <div>
+                        {{ pm.form }}
+                    </div>
+                    <div>
+                        {{ pm.description }}
+                    </div>
+                {% endfor %}
+            </div>
 		</div>
 	</header>
 </div>

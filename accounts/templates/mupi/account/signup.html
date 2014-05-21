@@ -36,9 +36,14 @@
                 <div class="col-md-8 col-md-offset-2 signup-form">
                     <h2>{% trans "Sign Up" %}</h2>
                     <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}"
-			class="form-horizontal">{% csrf_token %}
-			<input type="hidden" name="plan" value="1" />
+			            class="form-horizontal">{% csrf_token %}
                         {% with errors=form.username.errors %}
+                        <div class="form-group">
+                            <label class="col-md-4 col-sm-4">{% trans "Plan" %}</label>
+                            <div class="col-md-8 col-sm-6">
+                                 {{ form.plan  }}
+                            </div>
+                        </div>
                         <div class="form-group{{ errors|yesno:' has-error,' }}">
                             <label class="col-md-4 col-sm-4">{% trans "Username" %}</label>
                             <div class="col-md-8 col-sm-6">

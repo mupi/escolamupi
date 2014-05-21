@@ -484,10 +484,6 @@ PAYPAL_RECEIVER_EMAIL = "contato-facilitator@mupi.me"
 
 # PAYPAL_RECEIVER_EMAIL = "virgilio.santos@gmail.com"
 
-PAYPAL_MODE='sandbox' # sandbox or live
-PAYPAL_CLIENT_ID=''
-PAYPAL_CLIENT_SECRET=''
-
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'SCOPE': ['email', 'publish_stream'],
