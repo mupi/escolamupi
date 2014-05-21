@@ -138,21 +138,38 @@ def paypal_signal_was_successful(sender, **kwargs):
 
     # Verify if the message does not exist already txn_id = 61E67681CH3238416
 
-    send_mail("Uepa", "=)", "contato@mupi.me", ["virgilio.santos@gmail.com"])
-    from urlparse import parse_qs
-    custom = parse_qs(sender.custom)
-    print custom
-    print sender.txn_type + " -- " + custom['user_id'][0] + " -- " + custom['user_mail'][0]
-    user = TimtecUser.objects.get(id=custom['user_id'][0])
-    print user.email + "--" + custom['user_mail'][0]
     if sender.payment_status == "Completed":
-        user.is_staff = True
-        user.save()
+        from urlparse import parse_qs
+
+        custom = parse_qs(sender.custom)
+        user = TimtecUser.objects.get(id=custom['user_id'][0])
+
+        message = " \
+                    O usuario " + user.username + " realizou pagamento \
+                    do tipo: " + str(sender.txn_type) + " \
+                  "
+
+        send_mail("[Mupi] Pagamento Realizado",
+                    message,
+                    "contato@mupi.me", ["virgilio.santos@gmail.com"])
+
+        from payments.models import UserPlanData
+        upd = UserPlanData.objects.get(user=user)
+
+        upd.user_status = True
+        upd.save()
 
 
 def paypal_signal_subscription_signup(sender, **kwargs):
-    print 'oe'
-    send_mail("Uepa subscription!", "=)", "contato@mupi.me", ["virgilio.santos@gmail.com"])
+    custom = parse_qs(sender.custom)
+    user = TimtecUser.objects.get(id=custom['user_id'][0])
+
+    message = " \
+                    O usuario " + user() + " realizou pagamento \
+                    do tipo: " + str(sender.txn_type) + " \
+                  "
+    send_mail("[Mupi] Nova assinatura",
+                message, "contato@mupi.me", ["virgilio.santos@gmail.com"])
 
 payment_was_successful.connect(paypal_signal_was_successful)
 subscription_signup.connect(paypal_signal_subscription_signup)
