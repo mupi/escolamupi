@@ -8,46 +8,87 @@ from django.conf import settings
 from paypal.standard.forms import PayPalPaymentsForm
 from braces.views import LoginRequiredMixin
 
-from .models import (Plans, UserPlanData)
+from .models import (Plans, UserPlanData, PaymentMethods)
 from accounts.models import TimtecUser
 
 from django.forms import ModelForm
 
 from paypal.standard.ipn.signals import (payment_was_successful, subscription_signup,
-						payment_was_flagged, payment_was_refunded,
-						payment_was_reversed)
+                        payment_was_flagged, payment_was_refunded,
+                        payment_was_reversed)
 from django.core.mail import send_mail
 
 
 class AccountPaymentView(LoginRequiredMixin, TemplateView):
-	template_name = "payment.html"
-	context_object_name = 'context'
-	base_url = "https://escolamupi.com.br"
+    template_name = "payment.html"
+    context_object_name = 'context'
+    base_url = "https://escolamupi.com.br"
 
-	if settings.DEBUG:
-		base_url = "http://localhost:8000"
+    if settings.DEBUG:
+        base_url = "http://localhost:8000"
 
-	def get(self, request, **kwargs):
-		# Se chegou aqui, o cara tem plano, entao, vamo renderizar o que ele
-		# pode usar pra pagar:
-		# Get all possible providers
-		# Create forms for each provider
-		# Render to response
-		return super(AccountPaymentView,
-				self).get(request, **kwargs)
+    def get(self, request, **kwargs):
+        # Se chegou aqui, o cara tem plano, entao, vamo renderizar o que ele
+        # pode usar pra pagar:
+        # ~~Get all possible providers~~ In context
+        # Create forms for each provider
+        # Render to response
 
-	def dispatch(self, *args, **kwargs):
-		from django.shortcuts import redirect
-		try:
-			upd = UserPlanData.objects.get(user_id=self.request.user.id)
-		except:
-			return redirect('/accounts/plans', *args, **kwargs)
-		else:
-			if upd.user_status:
-				return redirect('/my-courses', *args, **kwargs)
-			else:
-				return super(AccountPaymentView,
-						self).dispatch(*args, **kwargs)
+        ## por enquanto, so paypal
+
+
+        return super(AccountPaymentView,
+                        self).get(request, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(AccountPaymentView, self).get_context_data(**kwargs)
+        upd = UserPlanData.objects.get(user=self.request.user)
+        pm_list = PaymentMethods.objects.filter(plans=upd.plan)
+
+        ## For each payment method, creates payment form. For now, just paypal
+
+        import ast
+        for pm in pm_list:
+            # TODO: test payment_method type. (for now, all paypal)
+            # make the form creation a function for each payment type
+            try:
+                data = ast.literal_eval(pm.data)
+            except:
+                pass
+            else:
+                pm.data = data
+                u = self.request.user
+
+                pm.data['custom'] = "user_mail=" + u.email + "&user_id=" + str(u.id)
+                pm.data['notify_url'] = settings.SITE_URL + reverse('paypal-ipn')
+                pm.data['return_url'] = settings.SITE_URL + "/my-courses/"
+                pm.data['cancel_return'] = settings.SITE_URL + "/accounts/payment"
+                pm.data['business'] = settings.PAYPAL_RECEIVER_EMAIL
+
+                form = PayPalPaymentsForm(initial=pm.data)
+
+                if settings.DEBUG:
+                    context = { "form" : form.sandbox(), }
+                    pm.form = form.sandbox()
+                else:
+                    context = { "form" : form.sandbox(), }
+                    pm.form = form.sandbox()
+
+        context['payment_methods'] = pm_list
+        return context
+
+    def dispatch(self, *args, **kwargs):
+        from django.shortcuts import redirect
+        try:
+            upd = UserPlanData.objects.get(user_id=self.request.user.id)
+        except:
+            return redirect('/accounts/plans', *args, **kwargs)
+        else:
+            if upd.user_status:
+                return redirect('/my-courses', *args, **kwargs)
+            else:
+                return super(AccountPaymentView,
+                        self).dispatch(*args, **kwargs)
 
 
 class PlansView(LoginRequiredMixin, CreateView):
@@ -119,29 +160,4 @@ payment_was_flagged.connect(paypal_signal_was_successful)
 #payment_was_refunded.connect(paypal_signal_was_successful)
 #payment_was_reversed.connect(paypal_signal_was_successful)
 
-
-def get_old(self, request, **kwargs):
-	u = self.request.user
-
-	settings.PAYPAL_DICT_MONTHLY['custom'] = "user_mail=" + u.email + "&user_id=" + str(u.id)
-	settings.PAYPAL_DICT_YEARLY['custom'] = "user_mail=" + u.email + "&user_id=" + str(u.id)
-
-	settings.PAYPAL_DICT_MONTHLY['notify_url'] = settings.SITE_URL + reverse('paypal-ipn')
-	form_monthly = PayPalPaymentsForm(initial=settings.PAYPAL_DICT_MONTHLY)
-
-	settings.PAYPAL_DICT_YEARLY['notify_url'] = settings.SITE_URL + reverse('paypal-ipn')
-	form_yearly = PayPalPaymentsForm(initial=settings.PAYPAL_DICT_YEARLY)
-
-	if settings.DEBUG:
-		context = {
-			"form_monthly": form_monthly.sandbox(),
-			"form_yearly": form_yearly.sandbox()
-		}
-	else:
-		context = {
-			"form_monthly": form_monthly.sandbox(),
-			"form_yearly": form_yearly.sandbox()
-		}
-
-	return self.render_to_response(context)
 

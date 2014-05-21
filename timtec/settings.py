@@ -507,43 +507,17 @@ if DEBUG:
 
 # django-registration flag
 # ACCOUNT_ACTIVATION_DAYS = 7
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "/accounts/payment"
 REGISTRATION_DEFAULT_GROUP_NAME = 'students'
 ACCOUNT_ADAPTER = "accounts.adapter.TimtecAdapter"
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "/accounts/payment"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = True
-ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
-ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
+#ACCOUNT_EMAIL_VERIFICATION =
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Escola Mupi] "
+ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
-
-
-PAYPAL_DICT_MONTHLY = {
-	"cmd": "_xclick-subscriptions",
-	"business": PAYPAL_RECEIVER_EMAIL,
-	"a3": "39.90", # monthly price
-	"p3": 1, # duration of each unit (depends on unit)
-	"t3": "M", # duration unit ("M for Month")
-	"src": "1", # make payments recur
-	"sra": "1", # reattempt payment on payment error
-	"no_note": "1", # remove extra notes (optional)
-	"item_name": "Inscrição Escola Mupi",
-	#"notify_url": SITE_DOMAIN, #+ reverse('paypal-ipn'),
-	"return_url": SITE_DOMAIN + "/my-courses/",
-	"cancel_return": SITE_DOMAIN + "/accounts/payment",
-}
-
-PAYPAL_DICT_YEARLY = {
-	"business": PAYPAL_RECEIVER_EMAIL,
-	"amount": "399.00",
-	"item_name": "Inscrição anual Escola Mupi",
-	#"notify_url": SITE_DOMAIN, #+ reverse('paypal-ipn'),
-	"return_url": SITE_DOMAIN + "/my-courses/",
-	"cancel_return": SITE_DOMAIN + "/accounts/payment",
-}
-
 
 TWITTER_CONSUMER_KEY = ''
 TWITTER_CONSUMER_SECRET = ''
