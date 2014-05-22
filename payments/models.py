@@ -23,7 +23,7 @@ class PaymentMethods (models.Model):
 
 
 class UserPayments (models.Model):
-    payment_id = models.CharField(_('Payment ID'), max_length=30, blank=False, unique=True)
+    payment_id = models.CharField(_('Payment ID'), max_length=60, blank=False, unique=True)
     user = models.ForeignKey(TimtecUser)
     payment_date = models.DateTimeField(_('Payment Date'), default=timezone.now)
     payment_status = models.CharField(_('Payment Status'), max_length=30, blank=False)

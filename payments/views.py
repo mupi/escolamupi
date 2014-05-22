@@ -144,20 +144,50 @@ def paypal_signal_was_successful(sender, **kwargs):
         custom = parse_qs(sender.custom)
         user = TimtecUser.objects.get(id=custom['user_id'][0])
 
-        message = " \
+        # Create new payment
+        # HH:MM:SS Mmm DD, YYYY PDT
+        from payments.models import UserPayments
+        import time
+        up = UserPayments(
+                        payment_id=sender.verify_sign,
+                        user = user,
+                        payment_date=sender.payment_date,
+                        payment_status = sender.payment_status,
+                )
+        try:
+            up.save()
+        except:
+            message = " \
+                    PAGAMENTO DUPLICADO: O usuario " + user.username + " realizou pagamento \
+                    do tipo: " + str(sender.txn_type) + " \
+                   "
+        else:
+            from payments.models import UserPlanData
+            upd = UserPlanData.objects.get(user=user)
+
+            upd.user_status = True
+            upd.last_payment = up
+            upd.save()
+            message = " \
                     O usuario " + user.username + " realizou pagamento \
                     do tipo: " + str(sender.txn_type) + " \
-                  "
-
-        send_mail("[Mupi] Pagamento Realizado",
+                   "
+        send_mail("[Mupi] Pagamento Realizado " + user.username,
                     message,
                     "contato@mupi.me", ["virgilio.santos@gmail.com"])
+    else:
+        from urlparse import parse_qs
+        custom = parse_qs(sender.custom)
+        user = TimtecUser.objects.get(id=custom['user_id'][0])
 
-        from payments.models import UserPlanData
-        upd = UserPlanData.objects.get(user=user)
 
-        upd.user_status = True
-        upd.save()
+        message = " PAGAMENTO COM PROBLEMAS: O usuario " \
+                    + user.username + " realizou pagamento \
+                    do tipo: " + str(sender.txn_type) + " \
+                    Seu status e: " + sender.payment_status
+        send_mail("[Mupi] Pagamento com problemas " + user.username,
+                    message,
+                    "contato@mupi.me", ["virgilio.santos@gmail.com"])
 
 
 def paypal_signal_subscription_signup(sender, **kwargs):
