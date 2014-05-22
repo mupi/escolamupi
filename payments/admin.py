@@ -14,7 +14,8 @@ class UserPlanDataAdmin(admin.ModelAdmin):
 			'user_status',)
 
 class PaymentMethodsAdmin(admin.ModelAdmin):
-	list_display = ('name', 'description', 'data',)
+	list_display = ('name', 'description_markdown', 'data',)
+	fields = ('name', 'description_markdown', 'data',)
 
 admin.site.register(UserPayments, UserPaymentsAdmin)
 admin.site.register(Plans, PlansAdmin)

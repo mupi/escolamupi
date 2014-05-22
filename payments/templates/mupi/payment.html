@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
+{% load timtec_markdown %}
 {% block content %}
 
 <!-- COURSE -->
@@ -20,7 +21,7 @@
                         {{ pm.form }}
                     </div>
                     <div>
-                        {{ pm.description }}
+                        {{ pm.description_markdown | timtec_markdown }}
                     </div>
                 {% endfor %}
             </div>

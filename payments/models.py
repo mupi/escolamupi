@@ -5,7 +5,8 @@ from django.utils import timezone
 
 class PaymentMethods (models.Model):
     name = models.CharField(_('Payment Type Name'), max_length=30, blank=False)
-    description =  models.TextField(max_length=300)
+    description =  models.TextField(max_length=300, blank=True)
+    description_markdown = models.TextField(_('Description'), blank=True)
     data = models.TextField(max_length=500, blank=False, help_text='A dictionary with data (FIXME)')
 
     def __unicode__(self):
@@ -14,6 +15,12 @@ class PaymentMethods (models.Model):
     class Meta:
         verbose_name = _('Payment Method')
         verbose_name_plural = _('Payment Methods')
+
+    def save(self):
+        import markdown
+        self.description = markdown.markdown(self.description_markdown)
+        super(PaymentMethods, self).save() # Call the "real" save() method.
+
 
 class UserPayments (models.Model):
     payment_id = models.CharField(_('Payment ID'), max_length=30, blank=False, unique=True)
