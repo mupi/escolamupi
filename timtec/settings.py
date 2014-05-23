@@ -195,6 +195,7 @@ PIPELINE_JS = {
             'js/truncate.js',
             'js/layout.js',
             'markdown/lib/markdown.js',
+            'mupi/js/plans-boxes.js',
         ),
         'output_filename': 'js/all.js',
     },

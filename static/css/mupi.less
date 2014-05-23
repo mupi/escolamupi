@@ -426,17 +426,49 @@ a, a:hover, a:active {
     }
   }
 }
-
+body{
+  counter-reset: planos;
+}
+.plandescription{
+  h3{
+    text-align: center;
+    color: @brand-primary;
+    font-size: 2.5em;
+  }
+}
 .price-box{
   background-color: #FFF;
   border-radius: 4px;
-  border-top: 1px solid @gray-lighter;
+  border-left: 1px solid @gray-lighter;
   border-right: 1px solid @gray-lighter;
-  border-left: 4px solid @brand-success;
+  border-top: 1px solid @gray-lighter;
   border-bottom: 1px solid @gray-lighter;
+  counter-increment: planos;
+  cursor: pointer;
   font-size: 1.2em;
-  &:first-child{
-    border-left: 4px solid @brand-primary;
+  margint-top: 10px;
+  margin-bottom: 30px;
+  &.selected{
+    border-top: 4px solid @brand-success;
+    -moz-box-shadow:    0 3px 4px rgba(170, 204, 170, 1);
+    -webkit-box-shadow: 0 3px 4px rgba(170, 204, 170, 1);
+    box-shadow:         0 3px 4px rgba(170, 204, 170, 1);
+    &::before{
+      background-color: rgba(170, 204, 170, 1);
+    }
+  }
+  &::before{
+    content: counter(planos);
+    position: absolute;
+    font-weight: bold;
+    left: -50px;
+    background-color: #FACAB3;
+    border-radius: 50%;
+    line-height: 40px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: #FFF;
   }
   h1{
     text-align: center;
@@ -446,19 +478,66 @@ a, a:hover, a:active {
     text-align: right;
     color: #666;
   }
+  button{
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
 }
-.signup-form{
+.signup-form-container{
   background-color: #eee;
   border-radius: 4px;
   padding-bottom: 10px;
   margin-bottom: 10px;;
   margin-top: 20px;
   h2{
-    margin: 30px 0;
+    margin: 10px 0;
   }
 }
-
-
+.signup-header{
+  h1{
+    font-family: 'PT Sans';
+    font-size: 2.5em;
+  }
+  p{
+    font-size: 1.4em;
+  }
+}
+.select-plan{
+  select{
+    padding: 10px;
+    font-size: 1.1em;
+  }
+}
+.signup-form{
+  margin-top: 1em;
+  .form-inputs{
+    margin: 10px auto;
+    max-width: 600px;
+    padding: 20px;
+    background-color: rgba(228, 225, 219, 1);
+  }
+  .form-control{
+    height: auto;
+    padding: 1em;
+    font-size: 1.1em;
+    @media (min-width: @screen-sm-min) {
+      max-width: 600px;
+    }
+  }
+  label{
+    text-transform: uppercase;
+  }
+  .submit{
+    padding: 1em;
+    button{
+      padding: 1em;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-top: 30px;
+    }
+  }
+}
 
 
 // PROFILE
