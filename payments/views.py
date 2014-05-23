@@ -82,7 +82,7 @@ class AccountPaymentView(LoginRequiredMixin, TemplateView):
                     pm.form = form.sandbox()
                 else:
                     context = { "form" : form, }
-                    pm.form = form.sandbox()
+                    pm.form = form.render()
 
         context['payment_methods'] = pm_list
         return context
