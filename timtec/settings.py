@@ -435,6 +435,9 @@ ROOT_URLCONF = 'timtec.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'timtec.wsgi.application'
 
+SOUTH_MIGRATION_MODULES = {
+    'easy_thumbnails': 'easy_thumbnails.south_migrations',
+}
 
 INSTALLED_APPS = (
     'django_extensions',
@@ -449,6 +452,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
     'django.contrib.admin',
+    'filer',
+    'mptt',
+    'easy_thumbnails',
+
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'rest_framework',
