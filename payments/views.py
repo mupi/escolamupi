@@ -13,7 +13,8 @@ from accounts.models import TimtecUser
 
 from django.forms import ModelForm
 
-from paypal.standard.ipn.signals import (payment_was_successful, subscription_signup,
+from paypal.standard.ipn.signals import (payment_was_successful,
+                                            subscription_signup,
                         payment_was_flagged, payment_was_refunded,
                         payment_was_reversed)
 from django.core.mail import send_mail
@@ -59,19 +60,28 @@ class AccountPaymentView(LoginRequiredMixin, TemplateView):
                 pm.data = data
                 u = self.request.user
 
-                pm.data['custom'] = "user_mail=" + u.email + "&user_id=" + str(u.id)
-                pm.data['notify_url'] = settings.SITE_URL + reverse('paypal-ipn')
+                pm.data['custom'] = "user_mail=" + u.email + "&user_id=" \
+                                        + str(u.id)
+                pm.data['notify_url'] = settings.SITE_URL + \
+                                            reverse('paypal-ipn')
                 pm.data['return_url'] = settings.SITE_URL + "/my-courses/"
-                pm.data['cancel_return'] = settings.SITE_URL + "/accounts/payment"
+                pm.data['cancel_return'] = settings.SITE_URL \
+                                            + "/accounts/payment"
                 pm.data['business'] = settings.PAYPAL_RECEIVER_EMAIL
 
-                form = PayPalPaymentsForm(initial=pm.data)
+                try:
+                    pm.data['cmd'] == '_xclick-subscriptions'
+                except:
+                    form = PayPalPaymentsForm(initial=pm.data)
+                else:
+                    form = PayPalPaymentsForm(initial=pm.data,
+                                                button_type="subscribe")
 
-                if settings.DEBUG:
+                if settings.PAYPAL_TEST:
                     context = { "form" : form.sandbox(), }
                     pm.form = form.sandbox()
                 else:
-                    context = { "form" : form.sandbox(), }
+                    context = { "form" : form, }
                     pm.form = form.sandbox()
 
         context['payment_methods'] = pm_list
@@ -158,7 +168,8 @@ def paypal_signal_was_successful(sender, **kwargs):
             up.save()
         except:
             message = " \
-                    PAGAMENTO DUPLICADO: O usuario " + user.username + " realizou pagamento \
+                    PAGAMENTO DUPLICADO: O usuario " + user.username + " \
+                    realizou pagamento \
                     do tipo: " + str(sender.txn_type) + " \
                    "
         else:

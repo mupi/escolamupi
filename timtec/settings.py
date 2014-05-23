@@ -482,6 +482,12 @@ INSTALLED_APPS = (
 PAYPAL_TEST = True
 PAYPAL_RECEIVER_EMAIL = "contato-facilitator@mupi.me"
 
+PAYPAL_SUBSCRIPTION_SANDBOX_IMAGE = "https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_subscribeCC_LG.gif"
+PAYPAL_SUBSCRIPTION_IMAGE = "https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_subscribeCC_LG.gif"
+PAYPAL_IMAGE = "https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_subscribeCC_LG.gif"
+PAYPAL_SANDBOX_IMAGE = "http://escolamupi.com.br/static/img/logo.5d174d245c09.png"
+#PAYPAL_DONATION_SANDBOX_IMAGE = "https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_subscribeCC_LG.gif"
+#PAYPAL_DONATION_IMAGE = "https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_subscribeCC_LG.gif"
 # PAYPAL_RECEIVER_EMAIL = "virgilio.santos@gmail.com"
 
 SOCIALACCOUNT_PROVIDERS = {

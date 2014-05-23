@@ -32,6 +32,9 @@ class UserPayments (models.Model):
         verbose_name = _('Payment')
         verbose_name_plural = _('Payments')
 
+    def __unicode__(self):
+        return str(self.payment_date)
+
 class Plans(models.Model):
     name =  models.CharField(_('Plan Name'), max_length=30, blank=False)
     description =  models.TextField(max_length=300, blank=False)
