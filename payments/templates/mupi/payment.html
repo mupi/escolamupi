@@ -8,16 +8,18 @@
 <div id="payment" class="course-intro">
 
     <!-- HEADER -->
-	<header class="container">
+	<div class="container">
         	<!-- PAGE-HEADER -->
 	        <div class="page-header">
-
-			<h1>{% trans 'Escolha sua forma de pagamento' %}</h1>
+            <header>
+			    <h1>{% trans 'Fazer pagamento' %}</h1>
+                <p>Clique em assinar abaixo para realizar o pagamento e iniciar seus estudos!</p>
+            </header>
 			<!-- writes out the form tag automatically -->
 
-            <div>
+            <div class="payment_method">
                 {% for pm in payment_methods %}
-                    <div>
+                    <div class="btn_subscribe">
                         {{ pm.form }}
                     </div>
                     <div>
@@ -25,7 +27,9 @@
                     </div>
                 {% endfor %}
             </div>
+
+            <p>Para outras formas de pagamento, por favor nos envie um email para contato@mupi.me</p>
 		</div>
-	</header>
+	</div>
 </div>
 {% endblock %}
