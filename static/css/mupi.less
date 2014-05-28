@@ -365,6 +365,20 @@ a, a:hover, a:active {
       text-transform: uppercase;
       font-weight: bold;
       padding: 20px 15px;
+      &:hover{
+        background-color: #fff;
+        color: @brand-success;
+      }
+      &.sign-up-btn{
+        background-color: #E2F8E6;
+        border-radius: 4px;
+        padding: 10px;
+        margin: 10px 0 5px 10px;
+      }
+      &.sign-up-btn:hover{
+        background-color: @brand-success;
+        color: #FFF;
+      }
     }
   }
 }
@@ -2591,6 +2605,28 @@ ul.uploaded-files-list {
 .navbar-nav .open .dropdown-menu{
   overflow: hidden;
 }
+#home-nav{
+  .navbar-toggle {
+      color: #fff;
+      font-weight: bold;
+  }
+  .navbar-toggle:focus, .navbar-toggle:hover{
+      background-color: #666;
+  }
+}
+#main-navbar{
+ .navbar-toggle {
+      color: #444;
+      font-weight: bold;
+  }
+  .navbar-toggle:focus, .navbar-toggle:hover{
+      background-color: #eee;
+  }
+}
+.navbar-toggle{
+  margin-right: 0;
+}
+
 #header-animation{
   position: relative;
   background: url('../img/stardust.png');
@@ -2711,7 +2747,6 @@ ul.uploaded-files-list {
     }
   }
 }
-
 
 #non-existe{
   font-size: 1.2em;
