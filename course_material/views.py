@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
+from django.views.generic.base import RedirectView
 from rest_framework import viewsets
 from rest_framework import filters
 import json
@@ -78,3 +79,13 @@ class CourseMaterialViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
             obj.course = Course.objects.get(id=int(self.kwargs['course']))
             self.kwargs['course'] = obj.course
         return super(CourseMaterialViewSet, self).pre_save(obj)
+
+class ConteudosRedirectView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        from timtec import settings
+        from urlparse import urlparse
+
+        url = urlparse(settings.SITE_URL)
+        self.url = "http://docs." + url.hostname + self.request.path \
+                    + "?" + self.request.GET.urlencode()
+        return super(ConteudosRedirectView, self).get_redirect_url(*args, **kwargs)
