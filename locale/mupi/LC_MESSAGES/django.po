@@ -978,7 +978,7 @@ msgid "Note"
 msgstr "Nota"
 
 msgid "Course structure"
-msgstr "Estrutura do curso"
+msgstr "O que você vai aprender"
 
 msgid "Go to course"
 msgstr "Ir para o projeto"
