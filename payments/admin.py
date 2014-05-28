@@ -6,7 +6,7 @@ class UserPaymentsAdmin(admin.ModelAdmin):
 	list_display = ('user', 'payment_date', 'payment_status',)
 
 class PlansAdmin(admin.ModelAdmin):
-	list_display = ('name',)
+	list_display = ('name', 'description')
 	fields = ('name', 'description_markdown', 'period', 'payment_methods',)
 
 class UserPlanDataAdmin(admin.ModelAdmin):

@@ -10,7 +10,7 @@ class PaymentMethods (models.Model):
     data = models.TextField(max_length=500, blank=False, help_text='A dictionary with data (FIXME)')
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
     class Meta:
         verbose_name = _('Payment Method')
@@ -23,7 +23,8 @@ class PaymentMethods (models.Model):
 
 
 class UserPayments (models.Model):
-    payment_id = models.CharField(_('Payment ID'), max_length=60, blank=False, unique=True)
+    payment_id = models.CharField(_('Payment ID'), max_length=120, blank=False, unique=True)
+    title = models.CharField(_('Payment Name'), max_length=30, blank=True)
     user = models.ForeignKey(TimtecUser)
     payment_date = models.DateTimeField(_('Payment Date'), default=timezone.now)
     payment_status = models.CharField(_('Payment Status'), max_length=30, blank=False)
@@ -33,7 +34,7 @@ class UserPayments (models.Model):
         verbose_name_plural = _('Payments')
 
     def __unicode__(self):
-        return str(self.payment_date)
+        return u'%s %s' % (self.title, self.payment_date)
 
 class Plans(models.Model):
     name =  models.CharField(_('Plan Name'), max_length=30, blank=False)
@@ -52,10 +53,7 @@ class Plans(models.Model):
         verbose_name_plural = _('Plans')
 
     def __unicode__(self):
-        return self.name
-
-    def __str__(self):
-        return self.name
+        return u'%s' % self.name
 
 class UserPlanData (models.Model):
     user = models.ForeignKey(TimtecUser)
@@ -69,6 +67,6 @@ class UserPlanData (models.Model):
         verbose_name_plural = _('User Plans and Data')
 
     def __unicode__(self):
-        return self.plan.name
+        return u'%s' % self.plan.name
 
 
