@@ -53,7 +53,6 @@ window.STATIC_URL = '{{ STATIC_URL }}';
         {% include "header-animation.html" %}
 
         <div id="home" class="container">
-
             <div class="row rewards">
                 <div class="col-md-2 hidden-xs">
                     <div class="img-home-border">
@@ -63,7 +62,7 @@ window.STATIC_URL = '{{ STATIC_URL }}';
                 <div class="col-md-4">
                     <h2>Aprenda a criar websites na prática e tire suas ideias do papel</h2>
                     <p>
-                        Na Mupi você aprende desenvolvendo projetos baseados em situações reais,
+                        Na Mupi você aprende desenvolvendo <a href="{% url 'courses' %}">projetos</a> baseados em situações reais,
                         ao mesmo tempo em que constrói seu <strong>portfólio</strong>
                         e se prepara para o mercado de trabalho.
                     </p>
