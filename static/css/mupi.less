@@ -934,16 +934,19 @@ body{
 #home{
   #courses-tree {
     position: relative;
+    background-color: rgba(246, 244, 241, 1);
+    border-radius: 5px;
+    padding: 5px 10px;
     @media only screen
       and (min-width : 420px) {
-        height: 1200px;
+        height: 1120px;
     }
     .course {
       background: #FEFEFE;
       border: 1px solid #eee;
       border-bottom: 4px solid #eee;
       width: 30%;
-      height: 250px;
+      height: 220px;
       display: none;
       padding: 0 10px;
       position: relative;
@@ -1003,7 +1006,7 @@ body{
             width: 4px;
             position: absolute;
             left: 50%;
-            top: 250px;
+            top: 220px;
           }
         }
       }
@@ -1019,7 +1022,7 @@ body{
       &.proj2, &.proj3{
         @media only screen
         and (min-width : 420px) {
-          top: 300px;
+          top: 315px;
           &:after{
             content: "";
             background-color: #ddd;
@@ -1027,7 +1030,7 @@ body{
             width: 4px;
             position: absolute;
             left: 50%;
-            top: 249px;
+            top: 220px;
           }
         }
       }
@@ -1074,7 +1077,7 @@ body{
       &.proj4, &.proj5{
         @media only screen
         and (min-width : 420px) {
-          top: 600px;
+          top: 585px;
           &:after{
             content: "";
             background-color: #ddd;
@@ -1082,14 +1085,14 @@ body{
             width: 4px;
             position: absolute;
             left: 50%;
-            top: 249px;
+            top: 220px;
           }
         }
       }
       &.proj6, &.proj7{
         @media only screen
         and (min-width : 420px) {
-          top: 900px;
+          top: 855px;
         }
       }
       h2{
@@ -2764,4 +2767,11 @@ ul.uploaded-files-list {
     margin: 20px 0;
     font-size: 14px;
   }
+}
+
+.design-thinking{
+  span{
+    font-size: 2em;
+  }
+  text-align: center;
 }

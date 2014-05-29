@@ -5,11 +5,39 @@
 {% block content %}
         <!-- CONTAINER -->
         <div id="home" class="container">
-            <h1>Carreira de Web Design</h1>
-            <h2>Aprenda a criar websites na prática</h2>
-            <p class="alert alert-info">Aprenda <span class="label label-default">HTML & CSS</span> com os projetos abaixo</p>
+            <ol class="breadcrumb">
+              <li><a href="#">Carreiras Mupi</a></li>
+              <li class="active">Web Design</li>
+              <li class="pull-right">
+                <a href="#" data-toggle="modal" data-target="#modal-help">Como funciona?</a>
+              </li>
+            </ol>
+            <header class="page-header">
+                <h1>Carreira de Web Design</h1>
+                <h2>Aprenda a criar Websites com <span class="label label-info">HTML & CSS</span></h2>
+            </header>
+            <div class="row">
+                <section class="design-thinking col-md-5">
+                    <h3>Processo de Design Thinking</h3>
+                    <span class="fa fa-search"></span>
+                    <span class="fa fa-long-arrow-right"></span>
+                    <span class="fa fa-lightbulb-o"></span>
+                    <span class="fa fa-long-arrow-right"></span>
+                    <span class="fa fa-file-text-o"></span>
+                    <span class="fa fa-long-arrow-right"></span>
+                    <span class="fa fa-rocket"></span>
+                    <p>[repete até obter o produto final]</p>
+                </section>
+                <div class="col-md-7">
+                    <p>Para a realização de todos os <a href="#courses-tree">projetos abaixo</a>, você será guiado pelo processo de <strong>Design Thinking</strong> que engloba todas as <a href="http://docs.escolamupi.com.br/conteudos/design-thinking" target="_blank">etapas</a> envolvidas em um projeto de design: desde a sua concepção à execução.
+                    </p>
+                    <p>
+                    Em cada etapa do processo, você terá instruções do que fazer e do que estudar. Aproveite sempre todas as dicas, realize as atividades e estude os materiais multimídia disponíveis, usando o fórum sempre que precisar =)
+                    </p>
+                </div>
+            </div>
             <section id="courses-tree" class="courses">
-
+                <h4><i class="fa fa-sitemap"></i> Árvore de projetos</h4>
                 {% for course in courses %}
                 <!-- COURSE -->
                     <div class="course {% if course.name == 'Perfil da equipe' %}proj1{% endif %}{% if course.name == 'Discografia: novo álbum' %}proj2{% endif %}{% if course.name == 'Quentinhas' %}proj3{% endif %}{% if course.name == 'Perfil público' %}proj4{% endif %}{% if course.name == 'Homenagem ao Cordel' %}proj5{% endif %}{% if course.name == 'O Mensageiro' %}proj6{% endif %}{% if course.name == 'CSI - Cascade Style Investigation' %}proj7{% endif %}">
@@ -33,7 +61,7 @@
                 {% endfor %}
             </section>
             <section class="badges">
-                <h3>Badges disponíveis:</h3>
+                <h3>Ao realizar todos os projetos você ganha:</h3>
                 <div class="row">
                     <div class="col-md-2 col-xs-6">
                         <p class="badge-img">
@@ -51,6 +79,20 @@
                     </div>
                 </div>
             </section>
+            <div class="modal fade" id="modal-help">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Como funciona a Escola Mupi</h4>
+                        </div>
+                        <div class="modal-body textcenter">
+                            <iframe width="640" height="480" src="//www.youtube.com/embed/DkdDuAxwX1g?rel=0" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <!-- CONTAINER -->
 {% endblock %}
