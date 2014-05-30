@@ -40,7 +40,7 @@
                 <h4><i class="fa fa-sitemap"></i> Árvore de projetos</h4>
                 {% for course in courses %}
                 <!-- COURSE -->
-                    <div class="course {% if course.name == 'Perfil da equipe' %}proj1{% endif %}{% if course.name == 'Discografia: novo álbum' %}proj2{% endif %}{% if course.name == 'Quentinhas' %}proj3{% endif %}{% if course.name == 'Perfil público' %}proj4{% endif %}{% if course.name == 'Homenagem ao Cordel' %}proj5{% endif %}{% if course.name == 'O Mensageiro' %}proj6{% endif %}{% if course.name == 'CSI - Cascade Style Investigation' %}proj7{% endif %}">
+                     <div class="course proj{{course.home_position}}">
                         <a href="{% url 'course_intro' course.slug %}">
                         <h2>{{ course.name }}</h2>
 
