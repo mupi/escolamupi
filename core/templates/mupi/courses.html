@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load timtec_markdown %}
 {% load staticfiles %}
 
 {% block content %}
@@ -40,22 +41,23 @@
                 <h4><i class="fa fa-sitemap"></i> Árvore de projetos</h4>
                 {% for course in courses %}
                 <!-- COURSE -->
-                     <div class="course proj{{course.home_position}}">
-                        <a href="{% url 'course_intro' course.slug %}">
-                        <h2>{{ course.name }}</h2>
-
-                        {% if course.thumbnail %}
-                            <div class="thumb_container">
-                                <img src="{{ MEDIA_URL }}{{ course.thumbnail }}" class="img-responsive center-block">
+                    <div class="course proj{{course.home_position}}">
+                        <div class="course-content">
+                            <a href="{% url 'course_intro' course.slug %}">
+                                <h2>{{ course.name }}</h2>
+                            </a>
+                            {% if course.thumbnail %}
+                                <div class="thumb_container">
+                                    <img src="{{ MEDIA_URL }}{{ course.thumbnail }}" class="img-responsive center-block">
+                                </div>
+                            {% endif %}
+                            <section class="skills">{{course.structure|timtec_markdown}}</section>
+                            <!-- <p>{{course.abstract}}</p> -->
+                            <div class="btn-group">
+                                <a href="{% url 'course_intro' course.slug %}" class="btn btn-success">{% trans 'Go to course' %}</a>
+                                <a href="{% url 'course_intro' course.slug %}" class="btn btn-success"><i class="fa fa-angle-double-right"></i></a>
                             </div>
-                        {% endif %}
-
-                        <p>{{course.abstract}}</p>
-                        <div class="btn-group">
-                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success">{% trans 'Go to course' %}</a>
-                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
                         </div>
-                        </a>
                     </div>
                 <!-- END COURSE -->
                 {% endfor %}
