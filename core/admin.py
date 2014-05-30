@@ -28,7 +28,7 @@ class UnitAdmin(ModelAdmin):
 
 
 class CourseAdmin(ModelAdmin):
-    list_display = ('name', 'status', 'publication',)
+    list_display = ('name', 'status', 'publication','home_position',)
     inlines = (LessonInline,)
 
 
