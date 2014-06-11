@@ -74,7 +74,7 @@
                             (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
 
                         console.log(exp, giv, shouldUseLastAnswer);
-                        if (!shouldUseLastAnswer) {
+                        if (!shouldUseLastAnswer && $scope.currentActivity.type !== 'markdown') {
                             // Initialize empty given answer
                             if(angular.isArray($scope.currentActivity.expected)) {
                                 answer.given = $scope.currentActivity.expected.map(function(){});
