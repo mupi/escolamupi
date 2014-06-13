@@ -73,7 +73,7 @@
                         var shouldUseLastAnswer = (exp !== null && exp !== undefined) &&
                             (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
 
-                        console.log(exp, giv, shouldUseLastAnswer);
+                        //console.log(exp, giv, shouldUseLastAnswer);
                         if (!shouldUseLastAnswer && $scope.currentActivity.type !== 'markdown') {
                             // Initialize empty given answer
                             if(angular.isArray($scope.currentActivity.expected)) {
@@ -87,6 +87,9 @@
                         var answer = {};
                         if(angular.isArray($scope.currentActivity.expected)) {
                             answer.given = $scope.currentActivity.expected.map(function(){});
+                        }
+                        if($scope.currentActivity.type === 'html5') {
+                            answer.given = $scope.currentActivity.data.code;
                         }
                         $scope.answer = new Answer(answer);
                     });
