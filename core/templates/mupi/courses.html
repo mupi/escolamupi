@@ -6,81 +6,219 @@
 {% block content %}
         <!-- CONTAINER -->
         <div id="home" class="container">
-            <ol class="breadcrumb">
-              <li><a href="#">Carreiras Mupi</a></li>
-              <li class="active">Web Design</li>
+            <!-- <ol class="breadcrumb" role="tablist">
+              <li class="active"><a href="#all-careers" role="tab" data-toggle="tab">Carreiras Mupi</a></li>
+              <li><a href="#courses-tab" role="tab" data-toggle="tab">Web Design</a></li>
               <li class="pull-right">
                 <a href="#" data-toggle="modal" data-target="#modal-help">Como funciona?</a>
               </li>
-            </ol>
-            <header class="page-header">
-                <h1>Carreira de Web Design</h1>
-                <h2>Aprenda a criar Websites com <span class="label label-info">HTML & CSS</span></h2>
-            </header>
-            <div class="row">
-                <section class="design-thinking col-md-5">
-                    <h3>Processo de Design Thinking</h3>
-                    <span class="fa fa-search"></span>
-                    <span class="fa fa-long-arrow-right"></span>
-                    <span class="fa fa-lightbulb-o"></span>
-                    <span class="fa fa-long-arrow-right"></span>
-                    <span class="fa fa-file-text-o"></span>
-                    <span class="fa fa-long-arrow-right"></span>
-                    <span class="fa fa-rocket"></span>
-                    <p>[repete até obter o produto final]</p>
-                </section>
-                <div class="col-md-7">
-                    <p>Para a realização de todos os <a href="#courses-tree">projetos abaixo</a>, você será guiado pelo processo de <strong>Design Thinking</strong> que engloba todas as <a href="http://docs.escolamupi.com.br/conteudos/design-thinking" target="_blank">etapas</a> envolvidas em um projeto de design: desde a sua concepção à execução.
-                    </p>
-                    <p>
-                    Em cada etapa do processo, você terá instruções do que fazer e do que estudar. Aproveite sempre todas as dicas, realize as atividades e estude os materiais multimídia disponíveis, usando o fórum sempre que precisar =)
-                    </p>
-                </div>
+            </ol> -->
+            <div class="breadcrumb-container">
+                <ul class="breadcrumb" role="tablist">
+                  <li class="active"><a href="#all-careers" role="tab" data-toggle="tab">Carreiras Mupi</a></li>
+                  <li><a href="#tab-courses" id="web-design-tab" role="tab" data-toggle="tab">Web Design</a></li>
+                </ul>
+                <a href="#modal-help" id="link-modal-help" data-toggle="modal" data-target="#modal-help">Como funciona?</a>
             </div>
-            <section id="courses-tree" class="courses">
-                <h4><i class="fa fa-sitemap"></i> Árvore de projetos</h4>
-                {% for course in courses %}
-                <!-- COURSE -->
-                    <div class="course proj{{course.home_position}}">
-                        <a href="{% url 'course_intro' course.slug %}">
-                        <div class="course-content">
-                            <h2>{{ course.name }}</h2>
-                            {% if course.thumbnail %}
-                                <div class="thumb_container">
-                                    <img src="{{ MEDIA_URL }}{{ course.thumbnail }}" class="img-responsive center-block">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="all-careers">
+                    <div class="row design-thinking-container">
+                        <section class="design-thinking col-md-5">
+                            <h3>Processo de Design Thinking</h3>
+                            <span class="fa fa-search"></span>
+                            <span class="fa fa-long-arrow-right"></span>
+                            <span class="fa fa-lightbulb-o"></span>
+                            <span class="fa fa-long-arrow-right"></span>
+                            <span class="fa fa-file-text-o"></span>
+                            <span class="fa fa-long-arrow-right"></span>
+                            <span class="fa fa-rocket"></span>
+                            <p>[repete até obter o produto final]</p>
+                        </section>
+                        <div class="col-md-7">
+                            <p>
+                                As carreiras abaixo são divididas em projetos. Para realizá-los, você será guiado pelo processo de <strong>Design Thinking</strong> que engloba todas as <a href="http://docs.escolamupi.com.br/conteudos/design-thinking" target="_blank">etapas</a> envolvidas em um projeto de design: desde a sua concepção à execução.
+                            </p>
+                            <p>
+                                Em cada etapa do processo, você terá instruções do que fazer e do que estudar. Aproveite sempre todas as dicas, realize as atividades e estude os materiais multimídia disponíveis, usando o fórum sempre que precisar =)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a href="#tab-courses" class="lnk-webdesign"><h4>Web Design</h4></a>
                                 </div>
-                            {% endif %}
-                            <section class="skills">{{course.structure|timtec_markdown}}</section>
-                            <!-- <p>{{course.abstract}}</p> -->
-                            <div class="btn-group">
-                                <a href="{% url 'course_intro' course.slug %}" class="btn btn-success">Fazer projeto</a>
-                                <a href="{% url 'course_intro' course.slug %}" class="btn btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                <div class="panel-body">
+                                    <p>Aprenda a desenvolver sites com HTML & CSS:</p>
+                                    <ul>
+                                        <li>Os elementos HTML e semântica</li>
+                                        <li>Estilizando o conteúdo com CSS</li>
+                                        <li>Layouts e posicionamento</li>
+                                        <li>Boas práticas e padrões de desenvolvimento web</li>
+                                    </ul>
+                                    <a href="#tab-courses" class="lnk-webdesign btn btn-success pull-right">Ir para projetos</a>
+                                </div>
                             </div>
                         </div>
-                        </a>
+                        <div class="col-md-4">
+                            <!-- Begin MailChimp Signup Form -->
+                            <div id="mc_embed_signup">
+                                <form action="//mupi.us6.list-manage.com/subscribe/post?u=019b0afa5dc43eb80d4496614&amp;id=fb4cd863fe" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <label for="mce-EMAIL">Programação com Javascript</label>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>Deixe seu email que te avisaremos assim que for lançada</p>
+                                            <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
+                                            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                            <div style="position: absolute; left: -5000px;"><input type="text" name="b_019b0afa5dc43eb80d4496614_fb4cd863fe" tabindex="-1" value=""></div>
+                                            <div class="clear pull-right"><input type="submit" value="Me avise!" name="subscribe" id="mc-embedded-subscribe" class="btn btn-info"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!--End mc_embed_signup-->
+                        </div>
+                        <div class="col-md-4">
+                            <!-- Begin MailChimp Signup Form -->
+                            <div id="mc_embed_signup">
+                            <form action="//escolamupi.us6.list-manage.com/subscribe/post?u=019b0afa5dc43eb80d4496614&amp;id=bcff6ae7df" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label for="mce-EMAIL">Criação de aplicativos para Android</label>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>Deixe seu email que te avisaremos assim que for lançada</p>
+                                        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
+                                        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                        <div style="position: absolute; left: -5000px;"><input type="text" name="b_019b0afa5dc43eb80d4496614_bcff6ae7df" tabindex="-1" value=""></div>
+                                        <div class="clear pull-right"><input type="submit" value="Me avise!" name="subscribe" id="mc-embedded-subscribe" class="btn btn-info"></div>
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+
+                            <!--End mc_embed_signup-->
+                        </div>
                     </div>
-                <!-- END COURSE -->
-                {% endfor %}
-            </section>
-            <section class="badges">
-                <h3>Ao realizar todos os projetos você ganha:</h3>
-                <div class="row">
-                    <div class="col-md-2 col-xs-6">
-                        <p class="badge-img">
-                            <img src="{% static 'img/htmlovo.png' %}" />
-                        </p>
-                        <h4>HTML nível 1</h4>
-                        <p>Reconhece um código HTML e consegue estruturar uma página básica.</p>
-                    </div>
-                    <div class="col-md-2 col-xs-6">
-                        <p class="badge-img">
-                            <img src="{% static 'img/cssovo.png' %}" />
-                        </p>
-                        <h4>CSS nível 1</h4>
-                        <p>Reconhece um código em CSS e conhece as propriedades básicas de estilização.</p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div id="mc_embed_signup">
+                            <form action="//escolamupi.us6.list-manage.com/subscribe/post?u=019b0afa5dc43eb80d4496614&amp;id=96582ac4a7" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label for="mce-EMAIL">Desenvolvimento web</label>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>Deixe seu email que te avisaremos assim que for lançada</p>
+                                        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
+                                        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                        <div style="position: absolute; left: -5000px;"><input type="text" name="b_019b0afa5dc43eb80d4496614_96582ac4a7" tabindex="-1" value=""></div>
+                                        <div class="clear pull-right"><input type="submit" value="Me avise!" name="subscribe" id="mc-embedded-subscribe" class="btn btn-info"></div>
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+
+                            <!--End mc_embed_signup-->
+                        </div>
+                        <div class="col-md-4">
+                            <!-- Begin MailChimp Signup Form -->
+                            <div id="mc_embed_signup">
+                            <form action="//mupi.us6.list-manage.com/subscribe/post?u=019b0afa5dc43eb80d4496614&amp;id=595bb8f6f5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label for="mce-EMAIL">Carreira em User Experience</label>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>Deixe seu email que te avisaremos assim que for lançada</p>
+                                        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
+                                        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                        <div style="position: absolute; left: -5000px;"><input type="text" name="b_019b0afa5dc43eb80d4496614_595bb8f6f5" tabindex="-1" value=""></div>
+                                        <div class="clear pull-right"><input type="submit" value="Me avise!" name="subscribe" id="mc-embedded-subscribe" class="btn btn-info"></div>
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+
+                            <!--End mc_embed_signup-->
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <p>Caso tenha alguma carreira que deseja aprender e não está aqui, clique abaixo para sugeri-la.</p>
+                                    <button data-toggle="modal" data-target="#modal-gform" class="btn btn-info pull-right">
+                                        Sugira uma carreira!
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="modal-gform">
+                                <div class="modal-dialog">
+                                    <div class="modal-content text-center">
+                                        <iframe src="https://docs.google.com/forms/d/1xbSeTWR6rm9s7ozEkgukob9HOv53xydjf5RADehv3DI/viewform?embedded=true" width="420" height="450" frameborder="0" marginheight="0" marginwidth="0">Carregando...</iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </section>
+                <div class="tab-pane fade" id="tab-courses">
+                    <header class="page-header">
+                        <h1>Carreira de Web Design</h1>
+                        <h2>Aprenda a criar Websites com HTML & CSS</h2>
+                    </header>
+
+                    <section id="courses-tree" class="courses">
+                        <h4><i class="fa fa-sitemap"></i> Árvore de projetos</h4>
+                        {% for course in courses %}
+                        <!-- COURSE -->
+                            <div class="course proj{{course.home_position}}">
+                                <a href="{% url 'course_intro' course.slug %}">
+                                <div class="course-content">
+                                    <h2>{{ course.name }}</h2>
+                                    {% if course.thumbnail %}
+                                        <div class="thumb_container">
+                                            <img src="{{ MEDIA_URL }}{{ course.thumbnail }}" class="img-responsive center-block">
+                                        </div>
+                                    {% endif %}
+                                    <section class="skills">{{course.structure|timtec_markdown}}</section>
+                                    <!-- <p>{{course.abstract}}</p> -->
+                                    <div class="btn-group">
+                                        <a href="{% url 'course_intro' course.slug %}" class="btn btn-success">Fazer projeto</a>
+                                        <a href="{% url 'course_intro' course.slug %}" class="btn btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        <!-- END COURSE -->
+                        {% endfor %}
+                    </section>
+                    <section class="badges">
+                        <h3>Ao realizar todos os projetos você ganha:</h3>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-6">
+                                <p class="badge-img">
+                                    <img src="{% static 'img/htmlovo.png' %}" />
+                                </p>
+                                <h4>HTML nível 1</h4>
+                                <p>Reconhece um código HTML e consegue estruturar uma página básica.</p>
+                            </div>
+                            <div class="col-md-2 col-xs-6">
+                                <p class="badge-img">
+                                    <img src="{% static 'img/cssovo.png' %}" />
+                                </p>
+                                <h4>CSS nível 1</h4>
+                                <p>Reconhece um código em CSS e conhece as propriedades básicas de estilização.</p>
+                            </div>
+                        </div>
+                    </section>
+              </div>
+            </div>
+
+
             <div class="modal fade" id="modal-help">
                 <div class="modal-dialog">
                     <div class="modal-content">
