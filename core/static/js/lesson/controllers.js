@@ -131,6 +131,12 @@
                     } else {
                         var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
                         if(index+1 === $scope.currentUnit.activities.length) {
+                            var progress = new Progress();
+                            progress.complete = new Date();
+                            progress.unit = $scope.currentUnit.id;
+                            $scope.currentUnit.progress = progress;
+                            progress.$save();
+                            
                             $scope.nextUnit();
                         } else {
                             $scope.selectActivity(index + 1);
