@@ -4,7 +4,8 @@
       <div class="row">
         <div class="col-lg-6 col-sm-6">
           <h1 class="course-name bottom top">
-             <a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a>
+            <a href="{% url 'courses' %}#web-design-projects">Carreira de Web Design</a>
+             / <a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a>
           </h1>
           {% include "_course-professors-inline.html" with course=course %}
         </div>
