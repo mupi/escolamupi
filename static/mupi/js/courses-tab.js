@@ -1,7 +1,7 @@
-jQuery(document).ready(function (){
-	jQuery('.lnk-webdesign').click(function (e) {
+$(document).ready(function (){
+	$('.lnk-webdesign').click(function (e) {
 	  e.preventDefault();
 	  /*$(this).tab('show');*/
-	  jQuery("#web-design-tab").trigger("click");
+	  $("#web-design-link").trigger("click");
 	})
 })
