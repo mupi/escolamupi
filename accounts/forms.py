@@ -4,8 +4,10 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from payments.models import Plans
+from django.contrib.auth.models import Group
 from payments.models import UserPlanData
 from datetime import datetime
+from django.conf import settings
 import time
 
 
@@ -46,6 +48,9 @@ class SignupForm(forms.Form):
 
     def save(self, user):
         user.accepted_terms = True
+        if settings.REGISTRATION_DEFAULT_GROUP_NAME:
+            user.groups.add(Group.objects.get(name=settings.REGISTRATION_DEFAULT_GROUP_NAME))
+
         user.save()
 
         dt = datetime.now()
