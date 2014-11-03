@@ -164,6 +164,23 @@ window.STATIC_URL = '{{ STATIC_URL }}';
 
     {% include 'footer.html' %}
 
+    <!-- UserVoice JavaScript SDK (only needed once on a page) -->
+    <script>(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/EiIHqej80oR1SOJNMGC0g.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()</script>
+
+    <!-- A tab to launch the Classic Widget -->
+    <script>
+    UserVoice = window.UserVoice || [];
+    UserVoice.push(['showTab', 'classic_widget', {
+      mode: 'feedback',
+      primary_color: '#cc6d00',
+      link_color: '#007dbf',
+      forum_id: 177390,
+      tab_label: 'Feedback & Suporte',
+      tab_color: '#f58300',
+      tab_position: 'middle-right',
+      tab_inverted: false
+    }]);
+    </script>
 
     <script type="text/javascript" src="{% static 'js/EasePack.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/TweenLite.min.js' %}"></script>
