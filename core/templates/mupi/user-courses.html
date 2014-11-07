@@ -1,136 +1,118 @@
-{% extends 'base.html' %}
-{% load i18n %}
-
-{% block content %}
-{% if user.is_authenticated %}
-	{% if not paid %}
-		{% include 'header-payment.html' %}
-	{% endif %}
-{% endif %}
-       <!-- CONTAINER -->
-        <div id="my-courses" class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <header class="row">
-                        <div class="col-md-7">
-                            <div class="row profile-card">
-                                <div class="col-md-3">
-                                    <img id="profile-avatar" src="{{ user.get_picture_url }}" class="img-rounded">
-                                </div>
-                                <div class="col-md-9">
-                                    <p>
-                                        <span class="name">{{ user }}</span>
-                                    </p>
-                                    <p>
-                                        {% if user.site %}
-                                            <a href="{{user.site}}" target="_blank">
-                                                {{user.site}}
-                                            </a>
-                                        {% endif %}
-                                    </p>
-                                    <p>
-                                        <span>
-                                            <span class="fa fa-suitcase"></span>
-                                            {% if user.occupation %}
-                                                {{ user.occupation }}
-                                            {% else %}
-                                                -
-                                            {% endif %}
-                                        </span>
-                                        <span>
-                                            <i class="fa fa-map-marker"></i>
-                                            {% if user.city %}
-                                                {{ user.city }}
-                                            {% else %}
-                                                -
-                                            {% endif %}
-                                        </span>
-                                    </p>
-                                    <a href="{% url 'profile_edit' %}" class="edit_profile">Editar perfil</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 instructions">
-                            <span>Que tal você... </span>
-                            <ul>
-                                <li>
-                                    <a href="http://escolamupi.com.br/course/exercicios/">praticar o que aprendeu?</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'user_notes' %}">ver suas anotações?</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'courses' %}">começar um novo projeto?</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'profile_edit' %}">atualizar seu perfil?</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </header>
-                    <header class="page-header-double">
-                        <h3>{% trans "My Courses" %}</h3>
-                    </header>
-
-                    <section class="courses">
-                        {% for cs in request.user.coursestudent_set.all %}
-                        <!-- COURSE -->
-                        <div class="course">
-                            <header>
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <h1>{{ cs.course.name }}</h1>
-                                    </div>
-                                    <div class="col-lg-4 textright">
-                                        <div class="btn-group">
-                                            <a href="{% url 'enroll_course' cs.course.slug %}" class="btn btn-sm btn-success">Continuar projeto</a>
-                                            <a href="{% url 'enroll_course' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </header>
-                            <div class="progress">
-                                <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
-                            </div>
-                            <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
-                            <!-- <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a> -->
-                            <!-- <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span> -->
-                        </div>
-                        <!-- END COURSE -->
-                        {% endfor %}
-                    </section>
+{% extends 'base.html' %} {% load i18n %} {% block content %} {% if user.is_authenticated %} {% if not paid %} {% include 'header-payment.html' %} {% endif %} {% endif %}
+<!-- CONTAINER -->
+<div id="my-courses" class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row profile-card thumbnail">
+                <div class="col-md-3">
+                    <img id="profile-avatar" src="{{ user.get_picture_url }}" class="img-rounded">
                 </div>
-                <div id="mural-recados" class="col-md-4">
-                    <div class="postit">
-                        <h3>Mural de recados</h3>
-                        <p>Olá{% if user.first_name %}, {{ user.first_name }}{% endif %}!</p>
-                        <p>Inicie seus estudos pelo projeto
-                            <a href="http://escolamupi.com.br/course/perfil-da-equipe/">
-                                Perfil da equipe"</a>, lá você encontra as instruções
-                                necessárias para realizá-lo. Não se esqueça de tirar suas dúvidas no fórum.
-                        </p>
-                        <p>Utilize o  <a href="/guia/">guia</a> para aprender sobre as funcionalidades da escola.</p>
-                        <p>Bons estudos! :)</p>
+                <div class="col-md-9">
+                    <p>
+                        <span class="name">{{ user }}</span>
+                    </p>
+                    <p>
+                        {% if user.site %}
+                        <a href="{{user.site}}" target="_blank">
+                                        {{user.site}}
+                                    </a>
+                        {% endif %}
+                    </p>
+                    <p>
+                        <span>
+                            <span class="fa fa-suitcase"></span>
+                            {% if user.occupation %} {{ user.occupation }} {% else %} - {% endif %}
+                        </span>
+                        <span>
+                            <i class="fa fa-map-marker"></i>
+                            {% if user.city %} {{ user.city }} {% else %} - {% endif %}
+                        </span>
+                    </p>
+                    <a href="{% url 'profile_edit' %}" class="edit_profile">Editar perfil</a>
+                </div>
+            </div>
+            <!-- <div id="mural-recados">
+                <div class="postit">
+                    <h3>Mural de recados</h3>
+                    <p>Olá{% if user.first_name %}, {{ user.first_name }}{% endif %}!</p>
+                    <p>Inicie seus estudos pelo projeto
+                        <a href="http://escolamupi.com.br/course/perfil-da-equipe/">
+                                Perfil da equipe"</a>, lá você encontra as instruções necessárias para realizá-lo. Não se esqueça de tirar suas dúvidas no fórum.
+                    </p>
+                    <p>Utilize o <a href="/guia/">guia</a> para aprender sobre as funcionalidades da escola.</p>
+                    <p>Bons estudos! :)</p>
+                </div>
+            </div> -->
+            <div>
+                <h3>Carreiras disponíveis:</h3>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="{% url 'courses' %}#web-design-projects">
+                            <h4>Web Design</h4>
+                        </a>
                     </div>
-                    <div>
-                        <h3>Carreiras disponíveis:</h3>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <a href="{% url 'courses' %}"><h4>Web Design</h4></a>
-                            </div>
-                            <div class="panel-body">
-                                <p>Aprenda a desenvolver sites com HTML & CSS:</p>
-                                <ul>
-                                    <li>Os elementos HTML e semântica</li>
-                                    <li>Estilizando o conteúdo com CSS</li>
-                                    <li>Layouts e posicionamento</li>
-                                    <li>Boas práticas e padrões de desenvolvimento web</li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="panel-body">
+                        <p>Aprenda a desenvolver sites com HTML & CSS:</p>
+                        <ul>
+                            <li>Os elementos HTML e semântica</li>
+                            <li>Estilizando o conteúdo com CSS</li>
+                            <li>Layouts e posicionamento</li>
+                            <li>Boas práticas e padrões de desenvolvimento web</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- CONTAINER -->
+
+        <div class="col-md-8">
+            <header class="page-header-double">
+                <h3>{% trans "My Courses" %}</h3>
+            </header>
+
+            <section class="courses">
+
+
+
+                {% if request.user.coursestudent_set.all|length == 0 %}
+
+                <p>
+                    Você ainda não começou nenhum projeto, escolha um na <a href="{% url 'courses' %}#web-design-projects">carreira de Web Design</a> e comece a aprender agora!
+                </p>
+                <p>
+                    Veio para o curso de Tecnologia para sala de aula? <a href="http://escolamupi.com.br/course/tecnologiaparasaladeaula/">Clique aqui</a>!
+                </p>
+                <p>
+                    Dúvidas? envie um email para cotato@mupi.me ou deixe uma mensagem clicando em Feedback & suporte ao lado.
+                </p>
+
+                {% endif %}
+
+                {% for cs in request.user.coursestudent_set.all %}
+                <!-- COURSE -->
+                <div class="course col-md-3">
+                    <header>
+                        <h1>{{ cs.course.name }}</h1>
+                        <img src="{{ MEDIA_URL }}{{ cs.course.thumbnail }}" class="img-responsive center-block">
+                    </header>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" style="width:{{cs.percent_progress}}%;">{{cs.percent_progress}}%</div>
+                    </div>
+                    <!-- <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a> -->
+                    <!-- <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a> -->
+                    <!-- <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span> -->
+
+                    <div class="textright">
+                        <div class="btn-group">
+                            <a href="{% url 'enroll_course' cs.course.slug %}" class="btn btn-sm btn-success">Continuar projeto</a>
+                            <a href="{% url 'enroll_course' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- END COURSE -->
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+</div>
+<!-- CONTAINER -->
 {% endblock %}
